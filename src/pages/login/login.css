@@ -1,15 +1,19 @@
-.login__page {
-  height: 100vh;
+.login {
+  height: 80vh;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 2rem;
 }
 
+.login__container {
+  margin-top: 5rem;
+  margin-right: 5rem;
+}
 .login__cover {
   background: var(--color-bg);
-  width: 35rem;
-  height: 35rem;
+  width: 30rem;
+  height: 30rem;
   position: relative;
   border-radius: 1rem;
   box-shadow: 0 0.188rem 1.55rem var(--color-primary);
@@ -19,7 +23,7 @@
   justify-content: space-around;
 }
 
-.login__container,
+.login__container-form,
 .login__form {
   display: flex;
   flex-direction: column;
@@ -39,4 +43,8 @@ input {
   color: var(--color-white);
   margin-bottom: 2rem;
   font-family: "Poppins", sans-serif;
+}
+.error-user {
+  color: #bb2323;
+  font-size: 1rem;
 }
