@@ -1,0 +1,5 @@
+export * from './login/Login'
+export * from './register/Register'
+export * from './almacenistaHome/AlmacenistaHome'
+export * from './balisticoHome/BalisticoHome'
+export * from './investigadorHome/InvestigadorHome'
