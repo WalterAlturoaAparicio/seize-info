@@ -2,7 +2,7 @@ import React from "react"
 import { useForm } from "../../hook/useForm"
 import "./login.css"
 import { useLocation, useNavigate } from "react-router-dom"
-import BANNER from "../../assets/banner.jpg"
+import BANNER from "../../assets/banner.png"
 
 const routes = {
   almacenista: "/almacenista",
@@ -49,51 +49,55 @@ export const Login = (props) => {
   }
 
   return (
-    <div className="login">
-      <div className="login-img">
-        <img src={BANNER} alt="policia usando computadora" />
-      </div>
-      <div className="login__container">
-        <div className="login__cover">
-          <h1>Login</h1>
-          {state?.error ? (
-            <div className="error-user">
-              Error usuario o contrase&ntilde;a incorrectos
+    <section className="login">
+      <div className="container login__container">
+        <div className="login__image">
+          <div className="login__image-img">
+            <img src={BANNER} alt="policia usando computadora" />
+          </div>
+        </div>
+        <div className="login__container-box">
+          <div className="login__cover">
+            <h1>Login</h1>
+            {state?.error ? (
+              <div className="error-user">
+                Error usuario o contrase&ntilde;a incorrectos
+              </div>
+            ) : (
+              <>
+                <div> </div>
+              </>
+            )}
+            <div className="login__container-form">
+              <form onSubmit={onLogin} className="login__form">
+                <input
+                  required
+                  type="text"
+                  placeholder="Usuario"
+                  name="user"
+                  id="user"
+                  onChange={onInputChange}
+                  value={user}
+                  autoComplete="off"
+                />
+                <input
+                  required
+                  type="password"
+                  placeholder="Contrase&ntilde;a"
+                  name="pass"
+                  id="pass"
+                  onChange={onInputChange}
+                  value={pass}
+                  autoComplete="off"
+                />
+                <button type="submit" className="btn btn-primary">
+                  Ingresar
+                </button>
+              </form>
             </div>
-          ) : (
-            <>
-              <div> </div>
-            </>
-          )}
-          <div className="login__container-form">
-            <form onSubmit={onLogin} className="login__form">
-              <input
-                required
-                type="text"
-                placeholder="Usuario"
-                name="user"
-                id="user"
-                onChange={onInputChange}
-                value={user}
-                autoComplete="off"
-              />
-              <input
-                required
-                type="password"
-                placeholder="Contrase&ntilde;a"
-                name="pass"
-                id="pass"
-                onChange={onInputChange}
-                value={pass}
-                autoComplete="off"
-              />
-              <button type="submit" className="btn btn-primary">
-                Ingresar
-              </button>
-            </form>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

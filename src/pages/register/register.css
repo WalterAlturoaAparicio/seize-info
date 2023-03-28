@@ -1,0 +1,95 @@
+.register__container {
+  display: grid;
+  grid-template-columns: 50% 35%;
+  gap: 15%;
+}
+
+.register__image {
+  width: 91%;
+  aspect-ratio: 1/1;
+  border-radius: 2rem;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    var(--color-primary),
+    transparent
+  );
+  display: grid;
+  place-items: center;
+}
+.register__image-img {
+  border-radius: 2rem;
+  overflow: hidden;
+  transform: rotate(10deg);
+  transition: var(--transition);
+}
+.register__image-img:hover {
+  transform: rotate(0);
+}
+.register__cover {
+  background: var(--color-bg);
+  width: 25rem;
+  height: 40rem;
+  position: relative;
+  border-radius: 1rem;
+  box-shadow: 0 0.188rem 1.55rem var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.register__container-form,
+.register__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.register__form {
+  margin-bottom: 2rem;
+}
+
+input {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: 2px solid var(--color-primary-variant);
+  resize: none;
+  color: var(--color-white);
+  margin-bottom: 2rem;
+  font-family: "Poppins", sans-serif;
+}
+.error-user {
+  color: #bb2323;
+  font-size: 1rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                       MEDIA QUERIES (MEDIUM DEVICES)                       */
+/* -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 1024px) {
+  .register__container {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .register__image {
+    display: none;
+  }
+  .register__container-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        MEDIA QUERIES (SMALL DEVICES)                       */
+/* -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 600px) {
+  .register__cover {
+    width: 20rem;
+  }
+}
