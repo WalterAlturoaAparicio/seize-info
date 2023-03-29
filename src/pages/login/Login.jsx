@@ -27,7 +27,6 @@ export const Login = (props) => {
 
   const onLogin = (e) => {
     e.preventDefault()
-    console.log(routes[user])
     if (users[user] && users[user] === pass) {
       navigate(routes[user], {
         replace: true,
@@ -37,7 +36,6 @@ export const Login = (props) => {
       })
       onResetForm()
     } else {
-      console.log("entra??")
       navigate("/login", {
         replace: true,
         state: {

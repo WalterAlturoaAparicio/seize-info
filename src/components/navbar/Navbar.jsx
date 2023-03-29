@@ -1,9 +1,17 @@
 import React from "react"
-import { Outlet, Link, useLocation } from "react-router-dom"
-import './navbar.css'
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom"
+import "./navbar.css"
 
 export const Navbar = () => {
   const { state } = useLocation()
+  const navigate = useNavigate()
+
+  const onLogout = (e) => {
+    e.preventDefault()
+    navigate("/login", {
+      replace: true,
+    })
+  }
   return (
     <>
       <header>
@@ -13,7 +21,9 @@ export const Navbar = () => {
 
         {state?.logged ? (
           <div>
-            <button className="btn-logout">Cerrar sesi&oacute;n</button>
+            <button className="btn btn-primary btn-logout" onClick={onLogout}>
+              Cerrar sesi&oacute;n
+            </button>
           </div>
         ) : (
           <nav>
