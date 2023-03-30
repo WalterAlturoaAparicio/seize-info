@@ -1,7 +1,9 @@
+.invest {
+    margin-bottom: 2rem;
+}
 .invest__container {
   background: var(--color-bg);
   width: 50%;
-  height: 30rem;
   position: relative;
   border-radius: 1rem;
   box-shadow: 0 0.188rem 1.55rem var(--color-primary);

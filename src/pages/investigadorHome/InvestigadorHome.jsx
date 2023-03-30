@@ -11,20 +11,60 @@ const weapon_types = [
   "carabina",
   "otra",
 ]
+
+const weapons = []
 export const InvestigadorHome = () => {
-  const { weapon_type, weapon_type_other, weapon_brand, onInputChange } =
-    useForm({
-      weapon_type: "",
-      weapon_type_other: "",
-      weapon_brand: "",
-    })
+  const {
+    funcionario,
+    weapon_type,
+    weapon_type_other,
+    weapon_brand,
+    uni_poli,
+    onInputChange,
+  } = useForm({
+    funcionario: "",
+    weapon_type: "",
+    weapon_type_other: "",
+    weapon_brand: "",
+  })
   return (
     <section className="invest">
       <div className="container invest__container">
         <div className="invest__container-form">
-          <form onSubmit className="invest__form">
-            <h3 htmlFor="weapon_type">Arma</h3>
+          <form className="invest__form">
             <div className="invest__form-inputs">
+              <h3 htmlFor="weapon_type">Informaci&oacute;n principal</h3>
+              <label htmlFor="consecutivo">Consecutivo</label>
+              <input
+                type="text"
+                name="consecutivo"
+                id="consecutivo"
+                value={weapons.length + 1}
+                disabled={true}
+              />
+              <label htmlFor="funcionario">
+                Funcionario que Incauta/Recibe el arma y/o municiones. <span className="input__required">*</span>
+              </label>
+              <input
+                type="text"
+                name="funcionario"
+                id="funcionario"
+                placeholder="Grado / cedula / nombre"
+                onChange={onInputChange}
+                value={funcionario}
+                autoComplete="off"
+              />
+              <label htmlFor="uni_poli">Unidad Policial</label>
+              <input
+                type="text"
+                placeholder="20001"
+                name="uni_poli"
+                id="uni_poli"
+                value={uni_poli}
+                onChange={onInputChange}
+                autoComplete="off"
+              />
+              <h3 htmlFor="weapon_type">Arma</h3>
               <label htmlFor="weapon_type">Tipo</label>
               <select
                 type="text"
@@ -36,13 +76,13 @@ export const InvestigadorHome = () => {
                 autoComplete="off"
               >
                 {weapon_types.map((opt) => (
-                  <option>{opt}</option>
+                  <option key={opt}>{opt}</option>
                 ))}
               </select>
               {weapon_type === "otra" ? (
                 <input
                   type="text"
-                  placeholder="otra, ¿Cual?"
+                  placeholder="otra, ¿Cu&aacute;l?"
                   name="weapon_type_other"
                   id="weapon_type_other"
                   onChange={onInputChange}

@@ -51,7 +51,7 @@
 
 
 .error-user {
-  color: #bb2323;
+  color: var(--color-red);
   font-size: 1rem;
 }
 

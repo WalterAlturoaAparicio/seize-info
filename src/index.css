@@ -17,6 +17,7 @@
   --color-primary-variant: #6d6d6d66;
   --color-white: #fff;
   --color-light: rgba(255, 255, 255, 0.6);
+  --color-red: #bb2323;
 
   --transition: all 400ms ease;
 
@@ -90,7 +91,8 @@ h5,
 h6 {
   font-weight: 500;
 }
-input,select {
+input,
+select {
   width: 100%;
   padding: 1.5rem;
   border-radius: 0.5rem;
@@ -102,7 +104,9 @@ input,select {
   margin-top: 0.5rem;
   font-family: "Poppins", sans-serif;
 }
-
+.input__required {
+  color: var(--color-red);
+}
 /* -------------------------------------------------------------------------- */
 /*                       MEDIA QUERIES (MEDIUM DEVICES)                       */
 /* -------------------------------------------------------------------------- */
