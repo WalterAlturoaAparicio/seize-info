@@ -82,6 +82,26 @@ img {
   width: 100%;
   object-fit: cover;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+}
+input,select {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: 2px solid var(--color-primary-variant);
+  resize: none;
+  color: var(--color-white);
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
+  font-family: "Poppins", sans-serif;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                       MEDIA QUERIES (MEDIUM DEVICES)                       */

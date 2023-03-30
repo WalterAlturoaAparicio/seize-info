@@ -1,0 +1,23 @@
+.invest__container {
+  background: var(--color-bg);
+  width: 50%;
+  height: 30rem;
+  position: relative;
+  border-radius: 1rem;
+  box-shadow: 0 0.188rem 1.55rem var(--color-primary);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+.invest__form-inputs {
+  margin: 1rem;
+}
+
+option{
+    background: var(--color-bg-variant  );
+}
+input:focus {
+    border-color: var(--color-primary);
+}

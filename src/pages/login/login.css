@@ -49,17 +49,7 @@
   margin-bottom: 2rem;
 }
 
-input {
-  width: 100%;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  background: transparent;
-  border: 2px solid var(--color-primary-variant);
-  resize: none;
-  color: var(--color-white);
-  margin-bottom: 2rem;
-  font-family: "Poppins", sans-serif;
-}
+
 .error-user {
   color: #bb2323;
   font-size: 1rem;
