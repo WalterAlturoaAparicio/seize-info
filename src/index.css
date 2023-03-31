@@ -99,13 +99,20 @@ select {
   background: transparent;
   border: 2px solid var(--color-primary-variant);
   resize: none;
-  color: var(--color-white);
+  color: var(--color-light);
   margin-bottom: 1.5rem;
   margin-top: 0.5rem;
   font-family: "Poppins", sans-serif;
 }
 .input__required {
   color: var(--color-red);
+}
+form h3 {
+  color: var(--color-white);
+  padding-bottom: 1rem;
+}
+label {
+  color: var(--color-light);
 }
 /* -------------------------------------------------------------------------- */
 /*                       MEDIA QUERIES (MEDIUM DEVICES)                       */
