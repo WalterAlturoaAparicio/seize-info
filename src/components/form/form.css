@@ -1,0 +1,65 @@
+.modal,
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+.overlay {
+  background: rgba(0, 0, 0, 0.801);
+}
+.invest__container-form {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, 10%);
+  line-height: 1.4;
+  padding: 0.8rem 1.6rem 2rem;
+  border-radius: 0.2rem;
+  max-width: 50rem;
+  min-width: 20rem;
+  background: var(--color-bg-variant);
+}
+.invest__form-inputs {
+  margin: 1rem;
+}
+select {
+  color: var(--color-bg);
+}
+option {
+  background: var(--color-bg-variant);
+  color: var(--color-white);
+}
+input:focus {
+  border-color: var(--color-primary);
+}
+.btn-close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 3.25rem;
+  height: 3.25rem;
+}
+.btn-close::after {
+  display: inline-block;
+  content: "\00d7";
+  font-size: 1.25rem;
+}
+
+.form__radio {
+    display: flex;
+    flex-direction: row;
+}
+
+.form__radio div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.form__radio input {
+    margin: 1rem
+}

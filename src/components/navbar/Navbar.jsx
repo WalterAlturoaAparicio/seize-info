@@ -16,7 +16,7 @@ export const Navbar = () => {
     <>
       <header>
         <h1>
-          <Link to="/"></Link>Seize Info
+          <Link to="/"></Link>Seize Info Demo
         </h1>
 
         {state?.logged ? (

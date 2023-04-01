@@ -92,17 +92,23 @@ h6 {
   font-weight: 500;
 }
 input,
-select {
+select,
+textarea {
   width: 100%;
   padding: 1.5rem;
+  height: 1rem;
   border-radius: 0.5rem;
-  background: transparent;
+  background: var(--color-white);
   border: 2px solid var(--color-primary-variant);
   resize: none;
-  color: var(--color-light);
+  color: var(--color-bg);
   margin-bottom: 1.5rem;
   margin-top: 0.5rem;
   font-family: "Poppins", sans-serif;
+}
+
+textarea {
+  height: 10rem;
 }
 .input__required {
   color: var(--color-red);
@@ -113,6 +119,10 @@ form h3 {
 }
 label {
   color: var(--color-light);
+}
+.error-form {
+  color: var(--color-red);
+  font-size: 1rem;
 }
 /* -------------------------------------------------------------------------- */
 /*                       MEDIA QUERIES (MEDIUM DEVICES)                       */

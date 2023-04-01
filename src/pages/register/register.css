@@ -60,10 +60,7 @@ input {
   margin-bottom: 2rem;
   font-family: "Poppins", sans-serif;
 }
-.error-user {
-  color: #bb2323;
-  font-size: 1rem;
-}
+
 
 /* -------------------------------------------------------------------------- */
 /*                       MEDIA QUERIES (MEDIUM DEVICES)                       */

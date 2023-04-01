@@ -49,14 +49,10 @@ export const Register = (props) => {
         <div className="register__container-box">
           <div className="register__cover">
             <h1>Sign up</h1>
-            {state?.error ? (
-              <div className="error-user">
+            {state?.error && (
+              <div className="error-form">
                 No se ha podido registrar el usuario
               </div>
-            ) : (
-              <>
-                <div> </div>
-              </>
             )}
             <div className="register__container-form">
               <form onSubmit={onRegister} className="register__form">

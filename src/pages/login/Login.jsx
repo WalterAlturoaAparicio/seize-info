@@ -57,14 +57,10 @@ export const Login = (props) => {
         <div className="login__container-box">
           <div className="login__cover">
             <h1>Login</h1>
-            {state?.error ? (
-              <div className="error-user">
+            {state?.error && (
+              <p className="error-form">
                 Error usuario o contrase&ntilde;a incorrectos
-              </div>
-            ) : (
-              <>
-                <div> </div>
-              </>
+              </p>
             )}
             <div className="login__container-form">
               <form onSubmit={onLogin} className="login__form">
