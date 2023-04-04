@@ -14,9 +14,8 @@
 }
 .invest__container-form {
   position: absolute;
-  top: 1%;
   left: 50%;
-  transform: translate(-50%, 10%);
+  transform: translate(-50%, 2%);
   line-height: 1.4;
   padding: 0.8rem 1.6rem 2rem;
   border-radius: 0.2rem;
@@ -26,9 +25,6 @@
 }
 .invest__form-inputs {
   margin: 1rem;
-}
-select {
-  color: var(--color-bg);
 }
 option {
   background: var(--color-bg-variant);

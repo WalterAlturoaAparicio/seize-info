@@ -11,6 +11,16 @@ const weapon_types = [
   "Carabina",
   "Otra",
 ]
+const weapon_calibers = [
+  "5.56mm",
+  "5.7mm",
+  "9mm",
+  ".22",
+  ".32",
+  ".38",
+  ".40",
+  "Otro",
+]
 const weapons = []
 const zeroFill = (number, width) => {
   width -= number.toString().length
@@ -44,10 +54,16 @@ export const InvestForm = (props) => {
     weapon_type: "",
     weapon_type_other: "",
     weapon_brand: "",
+    weapon_serie: "",
+    weapon_caliber: "",
+    weapon_caliber_other: "",
+    weapon_type_ammunition: "",
+    weapon_type_ammunition_other: "",
   }
   const { formState, onInputChange } = useForm(initialValues)
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
+  const [pag, setPag] = useState(0)
 
   const registerSubmit = (e) => {
     e.preventDefault()
@@ -74,6 +90,12 @@ export const InvestForm = (props) => {
     if (!values.fiscalia) errors.fiscalia = error.campo
     return errors
   }
+  const addPag = () => {
+    setPag(pag + 1)
+  }
+  const subPag = () => {
+    setPag(pag - 1)
+  }
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) toggleModal()
   })
@@ -94,15 +116,15 @@ export const InvestForm = (props) => {
                 disabled={true}
               />
               <label htmlFor="nombre">
-                Funcionario que Incauta/Recibe el arma y/o municiones.{" "}
-                <span className="input__required">*</span>
+                Funcionario que Incauta/Recibe el arma y/o municiones. (Grado y
+                nombre) <span className="input__required">*</span>
               </label>
               <p className="error-form">{formErrors.nombre}</p>
               <input
                 type="text"
                 name="nombre"
                 id="nombre"
-                placeholder="Grado y nombre"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.nombre}
                 autoComplete="off"
@@ -115,7 +137,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="cedula"
                 id="cedula"
-                placeholder="1000000000"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.cedula}
                 autoComplete="off"
@@ -123,7 +145,7 @@ export const InvestForm = (props) => {
               <label htmlFor="uni_poli">Unidad Policial</label>
               <input
                 type="text"
-                placeholder="20001"
+                placeholder="..."
                 name="uni_poli"
                 id="uni_poli"
                 value={formState.uni_poli}
@@ -133,7 +155,7 @@ export const InvestForm = (props) => {
               <label htmlFor="telefono_1">Tel&eacute;fono</label>
               <input
                 type="number"
-                placeholder="3103914574"
+                placeholder="..."
                 name="telefono_1"
                 id="telefono_1"
                 value={formState.telefono_1}
@@ -167,7 +189,7 @@ export const InvestForm = (props) => {
                     type="text"
                     name="nombre_persona"
                     id="nombre_persona"
-                    placeholder="Nombre"
+                    placeholder="..."
                     onChange={onInputChange}
                     value={formState.nombre_persona}
                     autoComplete="off"
@@ -180,7 +202,7 @@ export const InvestForm = (props) => {
                     type="text"
                     name="persona_cedula"
                     id="persona_cedula"
-                    placeholder="1000000000"
+                    placeholder="..."
                     onChange={onInputChange}
                     value={formState.persona_cedula}
                     autoComplete="off"
@@ -190,7 +212,7 @@ export const InvestForm = (props) => {
                   </label>
                   <input
                     type="text"
-                    placeholder="20001"
+                    placeholder="..."
                     name="persona_direccion"
                     id="persona_direccion"
                     value={formState.persona_direccion}
@@ -200,7 +222,7 @@ export const InvestForm = (props) => {
                   <label htmlFor="persona_telefono">Tel&eacute;fono</label>
                   <input
                     type="number"
-                    placeholder="3103914574"
+                    placeholder="..."
                     name="persona_telefono"
                     id="persona_telefono"
                     value={formState.persona_telefono}
@@ -218,7 +240,7 @@ export const InvestForm = (props) => {
                 type="number"
                 name="nunc"
                 id="nunc"
-                placeholder="1000000255141454774111"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.nunc}
                 autoComplete="off"
@@ -241,7 +263,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="direccion"
                 id="direccion"
-                placeholder="Direccion"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.direccion}
                 autoComplete="off"
@@ -253,7 +275,6 @@ export const InvestForm = (props) => {
                 type="datetime-local"
                 name="fecha_hora"
                 id="fecha_hora"
-                placeholder="fecha_hora"
                 onChange={onInputChange}
                 value={formState.fecha_hora}
                 min="1900-01-01T00:00"
@@ -268,7 +289,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="delito"
                 id="delito"
-                placeholder="Delito"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.delito}
                 autoComplete="off"
@@ -281,7 +302,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="fiscalia"
                 id="fiscalia"
-                placeholder="Fiscalia"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.fiscalia}
                 autoComplete="off"
@@ -292,7 +313,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="indicado_nombre"
                 id="indicado_nombre"
-                placeholder="Nombre"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.indicado_nombre}
                 autoComplete="off"
@@ -305,7 +326,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="indicado_cedula"
                 id="indicado_cedula"
-                placeholder="1000000000"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.indicado_cedula}
                 autoComplete="off"
@@ -316,7 +337,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="victima_nombre"
                 id="victima_nombre"
-                placeholder="Nombre"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.victima_nombre}
                 autoComplete="off"
@@ -327,7 +348,7 @@ export const InvestForm = (props) => {
                 type="text"
                 name="victima_cedula"
                 id="victima_cedula"
-                placeholder="1000000000"
+                placeholder="..."
                 onChange={onInputChange}
                 value={formState.victima_cedula}
                 autoComplete="off"
@@ -336,44 +357,125 @@ export const InvestForm = (props) => {
               <label htmlFor="weapon_type">Tipo</label>
               <select
                 type="text"
-                placeholder="Tipo"
                 name="weapon_type"
                 id="weapon_type"
                 onChange={onInputChange}
                 value={formState.weapon_type}
               >
-                <option disabled selected>
-                  {" "}
-                  -- Tipo --{" "}
-                </option>
+                <option disabled> -- Tipo -- </option>
                 {weapon_types.map((opt) => (
                   <option key={opt}>{opt}</option>
                 ))}
               </select>
-              {formState.weapon_type === "otra" && (
-                <input
-                  type="text"
-                  placeholder="otra, ¿Cu&aacute;l?"
-                  name="weapon_type_other"
-                  id="weapon_type_other"
-                  onChange={onInputChange}
-                  value={formState.weapon_type_other}
-                  autoComplete="off"
-                />
+              {formState.weapon_type === "Otra" && (
+                <>
+                  <label htmlFor="weapon_type_other">Otro tipo</label>
+                  <input
+                    type="text"
+                    placeholder="Otra, ¿Cu&aacute;l?..."
+                    name="weapon_type_other"
+                    id="weapon_type_other"
+                    onChange={onInputChange}
+                    value={formState.weapon_type_other}
+                    autoComplete="off"
+                  />
+                </>
               )}
+              <label htmlFor="weapon_brand">
+                Marca del arma (casa fabricante)
+              </label>
               <input
                 type="text"
-                placeholder="Marca"
+                placeholder="..."
                 name="weapon_brand"
                 id="weapon_brand"
                 onChange={onInputChange}
                 value={formState.weapon_brand}
                 autoComplete="off"
               />
+              <label htmlFor="weapon_serie">N° Serie del arma</label>
+              <input
+                type="text"
+                placeholder="..."
+                name="weapon_serie"
+                id="weapon_serie"
+                onChange={onInputChange}
+                value={formState.weapon_serie}
+                autoComplete="off"
+              />
+              <label htmlFor="weapon_caliber">Calibre</label>
+              <select
+                type="text"
+                name="weapon_caliber"
+                id="weapon_caliber"
+                onChange={onInputChange}
+                value={formState.weapon_caliber}
+              >
+                <option disabled> -- Calibre -- </option>
+                {weapon_calibers.map((opt) => (
+                  <option key={opt}>{opt}</option>
+                ))}
+              </select>
+              {formState.weapon_caliber === "Otro" && (
+                <>
+                  <label htmlFor="weapon_caliber_other">Otro calibre</label>
+                  <input
+                    type="text"
+                    placeholder="Otro, ¿Cu&aacute;l?..."
+                    name="weapon_caliber_other"
+                    id="weapon_caliber_other"
+                    onChange={onInputChange}
+                    value={formState.weapon_caliber_other}
+                    autoComplete="off"
+                  />
+                </>
+              )}
+              <label htmlFor="weapon_type_ammunition">
+                Tipo de munici&oacute;n
+              </label>
+              <select
+                type="text"
+                name="weapon_type_ammunition"
+                id="weapon_type_ammunition"
+                onChange={onInputChange}
+                value={formState.weapon_type_ammunition}
+              >
+                <option disabled> -- Calibre -- </option>
+                {weapon_calibers.map((opt) => (
+                  <option key={opt}>{opt}</option>
+                ))}
+              </select>
+              {formState.weapon_type_ammunition === "Otro" && (
+                <>
+                  <label htmlFor="weapon_type_ammunition_other">
+                    Otro tipo de munici&oacute;n
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Otro, ¿Cu&aacute;l?..."
+                    name="weapon_type_ammunition_other"
+                    id="weapon_type_ammunition_other"
+                    onChange={onInputChange}
+                    value={formState.weapon_type_ammunition_other}
+                    autoComplete="off"
+                  />
+                </>
+              )}
             </div>
-            <button type="submit" className="btn btn-primary">
-              Registrar
-            </button>
+
+            {pag > 0 && (
+              <button className="btn btn-primary"onClick={subPag}>Atr&aacute;s</button>
+            )}
+            {pag < 3 && (
+              <button className="btn btn-primary" onClick={addPag}>
+                Siguiente
+              </button>
+            )}
+            {pag === 3 && (
+              <button type="submit" className="btn btn-primary">
+                Registrar
+              </button>
+            )}
           </form>
         </div>
       </div>
