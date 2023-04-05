@@ -15,12 +15,12 @@
 .invest__container-form {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 2%);
+  transform: translate(-50%, 5%);
   line-height: 1.4;
   padding: 0.8rem 1.6rem 2rem;
   border-radius: 0.2rem;
   max-width: 50rem;
-  min-width: 20rem;
+  min-width: 30rem;
   background: var(--color-bg-variant);
 }
 .invest__form-inputs {
@@ -47,15 +47,19 @@ input:focus {
 }
 
 .form__radio {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .form__radio div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .form__radio input {
-    margin: 1rem
+  margin: 1rem;
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
 }
