@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useForm } from "../../hook/useForm"
 import "./form.css"
+import { weapons } from "../../data/data"
+import {
+  weapon_types,
+  weapon_calibers,
+  ubication_emp_ef,
+} from "../../utils/forms"
 
-const weapon_types = [
-  "Pistola",
-  "Revolver",
-  "Fusil",
-  "Ametralladora",
-  "Escopeta",
-  "Carabina",
-  "Otra",
-]
-const weapon_calibers = [
-  "5.56mm",
-  "5.7mm",
-  "9mm",
-  ".22",
-  ".32",
-  ".38",
-  ".40",
-  "Otro",
-]
-const ubication_emp_ef = ["Estudio", "Almacen transitorio"]
-const weapons = []
 const zeroFill = (number, width) => {
   width -= number.toString().length
   if (width > 0) {
@@ -31,6 +16,7 @@ const zeroFill = (number, width) => {
   return number + "" // siempre devuelve tipo cadena
 }
 export const InvestForm = (props) => {
+  const ref = useRef()
   const { toggleModal } = props
   const initialValues = {
     nombre: "",
@@ -74,6 +60,10 @@ export const InvestForm = (props) => {
     vainilla_type: "",
     vainilla_type_other: "",
     vainilla_observation: "",
+    check_weapon: false,
+    check_projectile: false,
+    check_vainilla: false,
+    check_accesorie: false,
   }
   const { formState, onInputChange } = useForm(initialValues)
   const [formErrors, setFormErrors] = useState({})
@@ -85,6 +75,7 @@ export const InvestForm = (props) => {
     e.preventDefault()
     setFormErrors(validate(formState))
     setIsSubmit(true)
+
     weapons.push(formState)
   }
 
@@ -94,6 +85,7 @@ export const InvestForm = (props) => {
   }
   const validate = (values) => {
     const errors = {}
+    console.log(values.check_weapon)
     switch (pag) {
       case 0:
         if (!values.nombre) errors.nombre = error.campo
@@ -108,6 +100,13 @@ export const InvestForm = (props) => {
         else if (values.nunc.length !== 22) errors.nunc = error.nunc
         if (!values.delito) errors.delito = error.campo
         if (!values.fiscalia) errors.fiscalia = error.campo
+        if (
+          !values.check_weapon &&
+          !values.check_accesorie &&
+          !values.check_projectile &&
+          !values.check_vainilla
+        )
+          errors.registers = error.campo
         break
       default:
         break
@@ -118,9 +117,11 @@ export const InvestForm = (props) => {
   const addPag = () => {
     setFormErrors(validate(formState))
     setIsNext(true)
+    ref.current?.scrollIntoView({ block: "nearest" })
   }
   const subPag = () => {
     setPag(pag - 1)
+    ref.current?.scrollIntoView({ block: "nearest" })
   }
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
@@ -133,7 +134,14 @@ export const InvestForm = (props) => {
         toggleModal()
       }
     }
-  }, [formErrors, pag, isSubmit, toggleModal, isNext])
+  }, [
+    formErrors,
+    pag,
+    isSubmit,
+    toggleModal,
+    isNext,
+    initialValues.check_weapon,
+  ])
   return (
     <div className="modal">
       <div className="overlay">
@@ -297,7 +305,7 @@ export const InvestForm = (props) => {
                     </label>
                     <p className="error-form">{formErrors.nunc}</p>
                     <input
-                      type="number"
+                      type="text"
                       name="nunc"
                       id="nunc"
                       placeholder="..."
@@ -370,7 +378,6 @@ export const InvestForm = (props) => {
                     <label htmlFor="indicado_nombre">
                       Nombre del indiciado
                     </label>
-                    <p className="error-form">{formErrors.indicado_nombre}</p>
                     <input
                       type="text"
                       name="indicado_nombre"
@@ -383,7 +390,6 @@ export const InvestForm = (props) => {
                     <label htmlFor="indicado_cedula">
                       C&eacute;dula del indicado
                     </label>
-                    <p className="error-form">{formErrors.indicado_cedula}</p>
                     <input
                       type="text"
                       name="indicado_cedula"
@@ -394,7 +400,6 @@ export const InvestForm = (props) => {
                       autoComplete="off"
                     />
                     <label htmlFor="victima_nombre">Nombre del victima</label>
-                    <p className="error-form">{formErrors.victima_nombre}</p>
                     <input
                       type="text"
                       name="victima_nombre"
@@ -407,7 +412,6 @@ export const InvestForm = (props) => {
                     <label htmlFor="victima_cedula">
                       C&eacute;dula del victima
                     </label>
-                    <p className="error-form">{formErrors.victima_cedula}</p>
                     <input
                       type="text"
                       name="victima_cedula"
@@ -417,6 +421,51 @@ export const InvestForm = (props) => {
                       value={formState.victima_cedula}
                       autoComplete="off"
                     />
+                    <label htmlFor="registers">Registro de ...</label>
+                    <p className="error-form">{formErrors.registers}</p>
+                    <div className="form__checkbox">
+                      <div>
+                        <input
+                          type="checkbox"
+                          name="check_weapon"
+                          id="check_weapon"
+                          value="weapon"
+                          autoComplete="off"
+                          onChange={onInputChange}
+                        />
+                        Arma
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          name="check_projectile"
+                          id="check_projectile"
+                          value="projectile"
+                          autoComplete="off"
+                        />
+                        Proyectil
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          name="check_vainilla"
+                          id="check_vainilla"
+                          value="vainilla"
+                          autoComplete="off"
+                        />
+                        Vainilla
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          name="check_accesorie"
+                          id="check_accesorie"
+                          value="accesorie"
+                          autoComplete="off"
+                        />
+                        Accesorio
+                      </div>
+                    </div>
                   </>
                 )
               }
