@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "../../hook/useForm"
 import "./form.css"
 import { weapons } from "../../data/data"
@@ -6,7 +6,6 @@ import {
   weapon_types,
   weapon_calibers,
   ubication_emp_ef,
-  invest_form_cb,
 } from "../../utils/forms"
 
 const zeroFill = (number, width) => {
@@ -17,7 +16,6 @@ const zeroFill = (number, width) => {
   return number + "" // siempre devuelve tipo cadena
 }
 export const InvestForm = (props) => {
-  const ref = useRef()
   const { toggleModal } = props
   const initialValues = {
     nombre: "",
@@ -67,10 +65,6 @@ export const InvestForm = (props) => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [pag, setPag] = useState(0)
   const [isNext, setIsNext] = useState(false)
-  const [pagTotal, setPagTotal] = useState(1)
-  const [checkedState, setCheckedState] = useState(
-    new Array(invest_form_cb.length).fill(false)
-  )
 
   const registerSubmit = (e) => {
     e.preventDefault()
@@ -99,42 +93,20 @@ export const InvestForm = (props) => {
         else if (values.nunc.length !== 22) errors.nunc = error.nunc
         if (!values.delito) errors.delito = error.campo
         if (!values.fiscalia) errors.fiscalia = error.campo
-        let isCheck = false
-        for (const state of checkedState) {
-          if (state) {
-            isCheck = true
-            break
-          }
-        }
-        if (!isCheck) errors.registers = error.campo
         break
       default:
         break
     }
-    console.log(errors)
     return errors
   }
   const addPag = () => {
     setFormErrors(validate(formState))
     setIsNext(true)
-    ref.current?.scrollIntoView({ block: "nearest" })
   }
   const subPag = () => {
     setPag(pag - 1)
-    ref.current?.scrollIntoView({ block: "nearest" })
   }
-  const handleOnChangeCb = (e, position) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    )
-    setCheckedState(updatedCheckedState)
-    const total = updatedCheckedState.reduce(
-      (sum, current) => (current ? ++sum : sum),
-      1
-    )
-    setPagTotal(total)
-    onInputChange(e)
-  }
+
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       if (isNext) {
@@ -425,27 +397,6 @@ export const InvestForm = (props) => {
                       value={formState.victima_cedula}
                       autoComplete="off"
                     />
-                    <label htmlFor="registers">Registro de ...</label>
-                    <p className="error-form">{formErrors.registers}</p>
-                    <div className="form__checkbox">
-                      <ul>
-                        {invest_form_cb.map((opt, index) => {
-                          return (
-                            <li key={index}>
-                              <input
-                                type="checkbox"
-                                id={`check${index}`}
-                                name={`check${index}`}
-                                value={true}
-                                checked={checkedState[index]}
-                                onChange={(e) => handleOnChangeCb(e, index)}
-                              />
-                              <label htmlFor={`check${index}`}>{opt}</label>
-                            </li>
-                          )
-                        })}
-                      </ul>
-                    </div>
                   </>
                 )
               }
@@ -816,7 +767,7 @@ export const InvestForm = (props) => {
                   Atr&aacute;s
                 </button>
               )}
-              {(pag === 1 || pag < pagTotal) && (
+              {pag < 5 && (
                 <button
                   className="btn btn-primary"
                   onClick={addPag}
@@ -825,7 +776,7 @@ export const InvestForm = (props) => {
                   Siguiente
                 </button>
               )}
-              {pag === pagTotal && pagTotal !== 1 && (
+              {pag === 5 && (
                 <button type="submit" className="btn btn-primary">
                   Registrar
                 </button>
