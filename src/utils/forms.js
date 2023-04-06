@@ -17,4 +17,5 @@ export const weapon_calibers = [
   ".40",
   "Otro",
 ]
+export const invest_form_cb = ["Arma", "Proyectil", "Vainilla", "Accesorio"]
 export const ubication_emp_ef = ["Estudio", "Almacen transitorio"]

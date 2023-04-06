@@ -6,6 +6,7 @@ import {
   weapon_types,
   weapon_calibers,
   ubication_emp_ef,
+  invest_form_cb,
 } from "../../utils/forms"
 
 const zeroFill = (number, width) => {
@@ -60,22 +61,21 @@ export const InvestForm = (props) => {
     vainilla_type: "",
     vainilla_type_other: "",
     vainilla_observation: "",
-    check_weapon: false,
-    check_projectile: false,
-    check_vainilla: false,
-    check_accesorie: false,
   }
   const { formState, onInputChange } = useForm(initialValues)
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
   const [pag, setPag] = useState(0)
   const [isNext, setIsNext] = useState(false)
+  const [pagTotal, setPagTotal] = useState(1)
+  const [checkedState, setCheckedState] = useState(
+    new Array(invest_form_cb.length).fill(false)
+  )
 
   const registerSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formState))
     setIsSubmit(true)
-
     weapons.push(formState)
   }
 
@@ -85,7 +85,6 @@ export const InvestForm = (props) => {
   }
   const validate = (values) => {
     const errors = {}
-    console.log(values.check_weapon)
     switch (pag) {
       case 0:
         if (!values.nombre) errors.nombre = error.campo
@@ -100,18 +99,19 @@ export const InvestForm = (props) => {
         else if (values.nunc.length !== 22) errors.nunc = error.nunc
         if (!values.delito) errors.delito = error.campo
         if (!values.fiscalia) errors.fiscalia = error.campo
-        if (
-          !values.check_weapon &&
-          !values.check_accesorie &&
-          !values.check_projectile &&
-          !values.check_vainilla
-        )
-          errors.registers = error.campo
+        let isCheck = false
+        for (const state of checkedState) {
+          if (state) {
+            isCheck = true
+            break
+          }
+        }
+        if (!isCheck) errors.registers = error.campo
         break
       default:
         break
     }
-
+    console.log(errors)
     return errors
   }
   const addPag = () => {
@@ -123,6 +123,18 @@ export const InvestForm = (props) => {
     setPag(pag - 1)
     ref.current?.scrollIntoView({ block: "nearest" })
   }
+  const handleOnChangeCb = (e, position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    )
+    setCheckedState(updatedCheckedState)
+    const total = updatedCheckedState.reduce(
+      (sum, current) => (current ? ++sum : sum),
+      1
+    )
+    setPagTotal(total)
+    onInputChange(e)
+  }
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       if (isNext) {
@@ -130,18 +142,10 @@ export const InvestForm = (props) => {
         setIsNext(false)
       }
       if (isSubmit) {
-        console.log(weapons)
         toggleModal()
       }
     }
-  }, [
-    formErrors,
-    pag,
-    isSubmit,
-    toggleModal,
-    isNext,
-    initialValues.check_weapon,
-  ])
+  }, [formErrors, pag, isSubmit, toggleModal, isNext])
   return (
     <div className="modal">
       <div className="overlay">
@@ -424,47 +428,23 @@ export const InvestForm = (props) => {
                     <label htmlFor="registers">Registro de ...</label>
                     <p className="error-form">{formErrors.registers}</p>
                     <div className="form__checkbox">
-                      <div>
-                        <input
-                          type="checkbox"
-                          name="check_weapon"
-                          id="check_weapon"
-                          value="weapon"
-                          autoComplete="off"
-                          onChange={onInputChange}
-                        />
-                        Arma
-                      </div>
-                      <div>
-                        <input
-                          type="checkbox"
-                          name="check_projectile"
-                          id="check_projectile"
-                          value="projectile"
-                          autoComplete="off"
-                        />
-                        Proyectil
-                      </div>
-                      <div>
-                        <input
-                          type="checkbox"
-                          name="check_vainilla"
-                          id="check_vainilla"
-                          value="vainilla"
-                          autoComplete="off"
-                        />
-                        Vainilla
-                      </div>
-                      <div>
-                        <input
-                          type="checkbox"
-                          name="check_accesorie"
-                          id="check_accesorie"
-                          value="accesorie"
-                          autoComplete="off"
-                        />
-                        Accesorio
-                      </div>
+                      <ul>
+                        {invest_form_cb.map((opt, index) => {
+                          return (
+                            <li key={index}>
+                              <input
+                                type="checkbox"
+                                id={`check${index}`}
+                                name={`check${index}`}
+                                value={true}
+                                checked={checkedState[index]}
+                                onChange={(e) => handleOnChangeCb(e, index)}
+                              />
+                              <label htmlFor={`check${index}`}>{opt}</label>
+                            </li>
+                          )
+                        })}
+                      </ul>
                     </div>
                   </>
                 )
@@ -474,7 +454,7 @@ export const InvestForm = (props) => {
                 /*                                 FORM PAG 2                                 */
                 /* -------------------------------------------------------------------------- */
 
-                pag === 2 && (
+                pag === 2 && initialValues.check0 && (
                   <>
                     <h3 htmlFor="weapon">Arma</h3>
                     <label htmlFor="weapon_type">Tipo</label>
@@ -836,7 +816,7 @@ export const InvestForm = (props) => {
                   Atr&aacute;s
                 </button>
               )}
-              {pag < 5 && (
+              {(pag === 1 || pag < pagTotal) && (
                 <button
                   className="btn btn-primary"
                   onClick={addPag}
@@ -845,7 +825,7 @@ export const InvestForm = (props) => {
                   Siguiente
                 </button>
               )}
-              {pag === 5 && (
+              {pag === pagTotal && pagTotal !== 1 && (
                 <button type="submit" className="btn btn-primary">
                   Registrar
                 </button>

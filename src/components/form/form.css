@@ -53,7 +53,7 @@ input:focus {
   display: flex;
   flex-direction: row;
 }
-.form__checkbox div,
+
 .form__radio div {
   display: flex;
   flex-direction: row;
