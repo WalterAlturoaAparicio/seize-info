@@ -6,54 +6,12 @@ import {
   weapon_types,
   weapon_calibers,
   ubication_emp_ef,
-  zeroFill,
 } from "../../utils/forms"
-import { error } from "../../utils/error"
 
-export const InvestForm = (props) => {
+
+export const BalisticForm = (props) => {
   const { toggleModal } = props
   const initialValues = {
-    nombre: "",
-    cedula: "",
-    uni_poli: "",
-    telefono: "",
-    persona: "investigador",
-    persona_nombre: "",
-    persona_cedula: "",
-    persona_direccion: "",
-    persona_telefono: "",
-    nunc: "",
-    descripcion: "",
-    direccion: "",
-    fecha_hora: "2023-04-10T00:00",
-    delito: "",
-    fiscalia: "",
-    indiciado_nombre: "",
-    indiciado_cedula: "",
-    victima_nombre: "",
-    victima_cedula: "",
-    weapon_type: "",
-    weapon_type_other: "",
-    weapon_brand: "",
-    weapon_serie: "",
-    weapon_caliber: "",
-    weapon_caliber_other: "",
-    weapon_type_ammunition: "",
-    weapon_type_ammunition_other: "",
-    weapon_caliber_ammunition: "",
-    weapon_caliber_ammunition_other: "",
-    weapon_ubication: "",
-    weapon_observation: "",
-    projectile_caliber: "",
-    projectile_caliber_other: "",
-    projectile_type: "",
-    projectile_type_other: "",
-    projectile_observation: "",
-    vainilla_caliber: "",
-    vainilla_caliber_other: "",
-    vainilla_type: "",
-    vainilla_type_other: "",
-    vainilla_observation: "",
   }
   const { formState, onInputChange } = useForm(initialValues)
   const [formErrors, setFormErrors] = useState({})
@@ -68,22 +26,13 @@ export const InvestForm = (props) => {
     weapons.push(formState)
   }
 
+  
   const validate = (values) => {
     const errors = {}
     switch (pag) {
       case 0:
-        if (!values.nombre) errors.nombre = error.campo
-        if (!values.cedula) errors.cedula = error.campo
-        if (values.persona === "otra") {
-          if (!values.persona_nombre) errors.persona_nombre = error.campo
-          if (!values.persona_cedula) errors.persona_cedula = error.campo
-        }
         break
       case 1:
-        if (!values.nunc) errors.nunc = error.campo
-        else if (values.nunc.length !== 22) errors.nunc = error.nunc
-        if (!values.delito) errors.delito = error.campo
-        if (!values.fiscalia) errors.fiscalia = error.campo
         break
       default:
         break
@@ -128,7 +77,6 @@ export const InvestForm = (props) => {
                       type="text"
                       name="consecutivo"
                       id="consecutivo"
-                      value={zeroFill(weapons.length + 1, 10)}
                       disabled={true}
                     />
                     <label htmlFor="nombre">

@@ -71,3 +71,8 @@ input:focus {
   display: flex;
   justify-content: space-between;
 }
+.form__container {
+  border: 0.01rem solid var(--color-primary);
+  border-radius: 0.2rem;
+  padding: 0.8rem 1.6rem 2rem;
+}
