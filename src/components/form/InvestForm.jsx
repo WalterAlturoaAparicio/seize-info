@@ -13,6 +13,7 @@ import { error } from "../../utils/error"
 export const InvestForm = (props) => {
   const { toggleModal } = props
   const initialValues = {
+    consecutivo:"",
     nombre: "",
     cedula: "",
     uni_poli: "",
@@ -66,6 +67,7 @@ export const InvestForm = (props) => {
     setFormErrors(validate(formState))
     setIsSubmit(true)
     weapons.push(formState)
+
   }
 
   const validate = (values) => {
@@ -129,6 +131,7 @@ export const InvestForm = (props) => {
                       name="consecutivo"
                       id="consecutivo"
                       value={zeroFill(weapons.length + 1, 10)}
+                      onLoadStart={onInputChange}
                       disabled={true}
                     />
                     <label htmlFor="nombre">
@@ -169,13 +172,13 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       autoComplete="off"
                     />
-                    <label htmlFor="telefono_1">Tel&eacute;fono</label>
+                    <label htmlFor="telefono">Tel&eacute;fono</label>
                     <input
                       type="number"
                       placeholder="..."
-                      name="telefono_1"
-                      id="telefono_1"
-                      value={formState.telefono_1}
+                      name="telefono"
+                      id="telefono"
+                      value={formState.telefono}
                       onChange={onInputChange}
                       autoComplete="off"
                     />
@@ -198,7 +201,7 @@ export const InvestForm = (props) => {
                     {formState.persona === "otra" && (
                       <>
                         <div className="form__container">
-                          <label htmlFor="nombre_persona">
+                          <label htmlFor="persona_nombre">
                             Nombre persona que halla{" "}
                             <span className="input__required">*</span>
                           </label>
@@ -207,11 +210,11 @@ export const InvestForm = (props) => {
                           </p>
                           <input
                             type="text"
-                            name="nombre_persona"
-                            id="nombre_persona"
+                            name="persona_nombre"
+                            id="persona_nombre"
                             placeholder="..."
                             onChange={onInputChange}
-                            value={formState.nombre_persona}
+                            value={formState.persona_nombre}
                             autoComplete="off"
                           />
                           <label htmlFor="persona_cedula">
@@ -398,7 +401,7 @@ export const InvestForm = (props) => {
                 /*                                 FORM PAG 2                                 */
                 /* -------------------------------------------------------------------------- */
 
-                pag === 2 && initialValues.check0 && (
+                pag === 2 && (
                   <>
                     <h3 htmlFor="weapon">Arma</h3>
                     <label htmlFor="weapon_type">Tipo</label>

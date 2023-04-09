@@ -1,5 +1,6 @@
 export const weapons = [
   {
+    consecutivo:"0000000001",
     nombre: "",
     cedula: "",
     uni_poli: "",
@@ -9,7 +10,7 @@ export const weapons = [
     persona_cedula: "",
     persona_direccion: "",
     persona_telefono: "",
-    nunc: "",
+    nunc: "1123132123123465456124",
     descripcion: "",
     direccion: "",
     fecha_hora: "2023-04-10T00:00",
@@ -41,5 +42,6 @@ export const weapons = [
     vainilla_type: "",
     vainilla_type_other: "",
     vainilla_observation: "",
+    peritaje: false,
   },
 ]

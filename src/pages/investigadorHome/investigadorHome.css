@@ -10,7 +10,7 @@ body.active-modal {
   width: 50%;
   position: relative;
   border-radius: 1rem;
-  box-shadow: 0 0.188rem 1.55rem var(--color-primary);
+  box-shadow: 0 0.188rem 1.55rem var(--color-primary-variant);
   padding: 2rem;
   display: flex;
   flex-direction: column;

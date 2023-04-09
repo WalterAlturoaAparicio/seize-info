@@ -10,7 +10,7 @@ import {
 
 
 export const BalisticForm = (props) => {
-  const { toggleModal } = props
+  const { toggleModal, weapon } = props
   const initialValues = {
   }
   const { formState, onInputChange } = useForm(initialValues)
@@ -47,6 +47,7 @@ export const BalisticForm = (props) => {
     setPag(pag - 1)
   }
 
+  console.log(weapon);
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       if (isNext) {

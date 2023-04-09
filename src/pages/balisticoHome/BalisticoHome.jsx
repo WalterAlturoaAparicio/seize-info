@@ -1,24 +1,47 @@
 import React, { useState } from "react"
 import "./balisticHome.css"
-import { BalisticForm } from "../../components/form/BalisticForm"
+import { weapons } from "../../data/data"
+import { TableBalistic } from "./TableBalistic"
+import { searchField } from "../../utils/forms"
 
 export const BalisticoHome = () => {
-  //modal
-  const [modal, setModal] = useState(false)
-  const toggleModal = () => {
-    setModal(!modal)
+  const [busqueda, setBusqueda] = useState("")
+  const [error, setError] = useState()
+
+  const weapons_peritaje = weapons.filter((weapon) => !weapon.peritaje)
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    const res = searchField(busqueda, weapons, "nunc")
+    if (res.error) setError(res.error)
+    else setError()
   }
-  modal
-    ? document.body.classList.add("active-modal")
-    : document.body.classList.remove("active-modal")
+  const handleChangeSearch = ({ target: { value } }) => {
+    setBusqueda(value)
+  }
 
   return (
     <section className="invest">
       <div className="container invest__container">
-        <button className="btn btn-primary" onClick={toggleModal}>
-          Nuevo
-        </button>
-        {modal && <BalisticForm toggleModal={toggleModal}/>}
+        <form onSubmit={handleSearch}>
+          <p className="error-form">{error}</p>
+          <div className="table__title">
+            <h3 className="title">Registros sin peritaje</h3>
+            <input
+              type="text"
+              name="buscar"
+              className="buscar"
+              placeholder="Ingrese el nunc"
+              value={busqueda}
+              onChange={handleChangeSearch}
+            />
+            <button className="btn btn-primary btn-buscar" type="submit">
+              Buscar
+            </button>
+          </div>
+        </form>
+        <br />
+        <TableBalistic data={weapons_peritaje} />
       </div>
     </section>
   )
