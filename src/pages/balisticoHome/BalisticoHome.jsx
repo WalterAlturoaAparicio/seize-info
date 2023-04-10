@@ -19,7 +19,6 @@ export const BalisticoHome = () => {
   const handleChangeSearch = ({ target: { value } }) => {
     setBusqueda(value)
   }
-
   return (
     <section className="invest">
       <div className="container invest__container">

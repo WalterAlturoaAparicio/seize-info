@@ -76,3 +76,17 @@ input:focus {
   border-radius: 0.2rem;
   padding: 0.8rem 1.6rem 2rem;
 }
+.form__container label {
+  color: var(--color-white);
+}
+.form__container {
+  color: var(--color-light);
+}
+.form__container-no-modify div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.white {
+  color: var(--color-white);
+}

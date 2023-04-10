@@ -12,8 +12,9 @@ import { error } from "../../utils/error"
 
 export const InvestForm = (props) => {
   const { toggleModal } = props
+  const consecutivo = zeroFill(weapons.length + 1, 10)
   const initialValues = {
-    consecutivo:"",
+    consecutivo,
     nombre: "",
     cedula: "",
     uni_poli: "",
@@ -55,6 +56,7 @@ export const InvestForm = (props) => {
     vainilla_type: "",
     vainilla_type_other: "",
     vainilla_observation: "",
+    accesories_description: "",
   }
   const { formState, onInputChange } = useForm(initialValues)
   const [formErrors, setFormErrors] = useState({})
@@ -67,7 +69,6 @@ export const InvestForm = (props) => {
     setFormErrors(validate(formState))
     setIsSubmit(true)
     weapons.push(formState)
-
   }
 
   const validate = (values) => {
@@ -86,6 +87,29 @@ export const InvestForm = (props) => {
         else if (values.nunc.length !== 22) errors.nunc = error.nunc
         if (!values.delito) errors.delito = error.campo
         if (!values.fiscalia) errors.fiscalia = error.campo
+        break
+      case 2:
+        if (values.weapon_type === " -- Tipo -- ") formState.weapon_type = ""
+        if (values.weapon_caliber === " -- Calibre -- ")
+          formState.weapon_caliber = ""
+        if (values.weapon_type_ammunition === " -- Tipo -- ")
+          formState.weapon_type_ammunition = ""
+        if (values.weapon_caliber_ammunition === " -- Calibre -- ")
+          formState.weapon_caliber_ammunition = ""
+        if (values.weapon_ubication === " -- Ubicacion -- ")
+          formState.weapon_ubication = ""
+        break
+      case 3:
+        if (values.projectile_type === " -- Tipo -- ")
+          formState.projectile_type = ""
+        if (values.projectile_caliber === " -- Calibre -- ")
+          formState.projectile_caliber = ""
+        break
+      case 4:
+        if (values.vainilla_type === " -- Tipo -- ")
+          formState.vainilla_type = ""
+        if (values.vainilla_caliber === " -- Calibre -- ")
+          formState.vainilla_caliber = ""
         break
       default:
         break
@@ -130,8 +154,7 @@ export const InvestForm = (props) => {
                       type="text"
                       name="consecutivo"
                       id="consecutivo"
-                      value={zeroFill(weapons.length + 1, 10)}
-                      onLoadStart={onInputChange}
+                      value={consecutivo}
                       disabled={true}
                     />
                     <label htmlFor="nombre">
@@ -195,10 +218,10 @@ export const InvestForm = (props) => {
                         Investigador
                       </div>
                       <div>
-                        <input type="radio" value="otra" name="persona" /> Otra
+                        <input type="radio" value="otro" name="persona" /> Otro
                       </div>
                     </div>
-                    {formState.persona === "otra" && (
+                    {formState.persona === "otro" && (
                       <>
                         <div className="form__container">
                           <label htmlFor="persona_nombre">
@@ -412,12 +435,12 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.weapon_type}
                     >
-                      <option disabled> -- Tipo -- </option>
+                      <option> -- Tipo -- </option>
                       {weapon_types.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
                     </select>
-                    {formState.weapon_type === "Otra" && (
+                    {formState.weapon_type === "Otro" && (
                       <>
                         <label htmlFor="weapon_type_other">Otro tipo</label>
                         <input
@@ -461,7 +484,7 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.weapon_caliber}
                     >
-                      <option disabled> -- Calibre -- </option>
+                      <option> -- Calibre -- </option>
                       {weapon_calibers.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
@@ -492,12 +515,12 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.weapon_type_ammunition}
                     >
-                      <option disabled> -- Tipo munici&oacute;n -- </option>
+                      <option> -- Tipo -- </option>
                       {weapon_types.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
                     </select>
-                    {formState.weapon_type_ammunition === "Otra" && (
+                    {formState.weapon_type_ammunition === "Otro" && (
                       <>
                         <label htmlFor="weapon_type_ammunition_other">
                           Otro tipo de munici&oacute;n
@@ -523,10 +546,7 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.weapon_caliber_ammunition}
                     >
-                      <option disabled>
-                        {" "}
-                        -- Calibre de munici&oacute;n --{" "}
-                      </option>
+                      <option> -- Calibre -- </option>
                       {weapon_calibers.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
@@ -557,7 +577,7 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.weapon_ubication}
                     >
-                      <option disabled> -- Ubicaci&oacute;n -- </option>
+                      <option> -- Ubicacion -- </option>
                       {ubication_emp_ef.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
@@ -592,7 +612,7 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.projectile_caliber}
                     >
-                      <option disabled> -- Calibre -- </option>
+                      <option> -- Calibre -- </option>
                       {weapon_calibers.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
@@ -621,12 +641,12 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.projectile_type}
                     >
-                      <option disabled> -- Tipo -- </option>
+                      <option> -- Tipo -- </option>
                       {weapon_types.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
                     </select>
-                    {formState.projectile_type === "Otra" && (
+                    {formState.projectile_type === "Otro" && (
                       <>
                         <label htmlFor="projectile_type_other">Otro tipo</label>
                         <input
@@ -670,7 +690,7 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.vainilla_caliber}
                     >
-                      <option disabled> -- Calibre -- </option>
+                      <option> -- Calibre -- </option>
                       {weapon_calibers.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
@@ -699,12 +719,12 @@ export const InvestForm = (props) => {
                       onChange={onInputChange}
                       value={formState.projectile_type}
                     >
-                      <option disabled> -- Tipo -- </option>
+                      <option> -- Tipo -- </option>
                       {weapon_types.map((opt) => (
                         <option key={opt}>{opt}</option>
                       ))}
                     </select>
-                    {formState.projectile_type === "Otra" && (
+                    {formState.projectile_type === "Otro" && (
                       <>
                         <label htmlFor="vainilla_type_other">Otro tipo</label>
                         <input
