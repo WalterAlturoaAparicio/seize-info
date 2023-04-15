@@ -1,13 +1,10 @@
-import React, { useState } from "react"
-import "./balisticHome.css"
-import { BalisticForm } from "../../components/form/BalisticForm"
+import React, { useState } from "react";
+import "./balisticHome.css";
+import { BalisticForm } from "../../components/form/BalisticForm";
 
-export const TableBalistic = ({ data }) => {
-  const [modal, setModal] = useState(false)
-  const [weapon, setWeapon] = useState({})
-  const toggleModal = () => {
-    setModal(!modal)
-  }
+export const TableBalistic = ({ data, toggleModal, modal }) => {
+  const [weapon, setWeapon] = useState({});
+
   return (
     <>
       <table>
@@ -33,20 +30,20 @@ export const TableBalistic = ({ data }) => {
                     <button
                       className="btn btn-primary"
                       onClick={() => {
-                        setWeapon(w)
-                        toggleModal()
+                        setWeapon(w);
+                        toggleModal();
                       }}
                     >
                       Peritaje
                     </button>
                   </td>
                 </tr>
-              )
+              );
             })
           )}
         </tbody>
       </table>
       {modal && <BalisticForm toggleModal={toggleModal} weapon={weapon} />}
     </>
-  )
-}
+  );
+};

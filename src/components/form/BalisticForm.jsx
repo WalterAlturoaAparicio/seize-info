@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { useForm } from "../../hook/useForm"
-import "./form.css"
-import { weapons } from "../../data/data"
+import React, { useEffect, useState } from "react";
+import { useForm } from "../../hook/useForm";
+import "./form.css";
+import { weapons } from "../../data/data";
 import {
   anima_types,
   sense_rotation,
@@ -12,92 +12,93 @@ import {
   shape,
   percution,
   validateForm,
-} from "../../utils/forms"
-import { error } from "../../utils/error"
+} from "../../utils/forms";
+import { error } from "../../utils/error";
 
 export const BalisticForm = (props) => {
-  const { toggleModal, weapon } = props
-  const initialValues = {
-    ...weapon,
-    peritaje_nombre: "",
-    peritaje_cedula: "",
-    fecha_informe: "",
-    estudio: "",
-    description_emp_ef: "",
-    observation: "",
-    weapon_anima_type: "",
-    weapon_rotation: "",
-    weapon_functioning: "",
-    weapon_fabrication: "",
-    weapon_finish: "",
-    weapon_finish_other: "",
-    weapon_cachas: "",
-    weapon_cachas_other: "",
-    weapon_empunadura: "",
-    weapon_empunadura_other: "",
-    weapon_guardamano: "",
-    weapon_guardamano_other: "",
-    projectile_shape: "",
-    projectile_shape_other: "",
-    projectile_observation: "",
-  }
-  const { formState, onInputChange } = useForm(initialValues)
-  const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
-  const [pag, setPag] = useState(0)
-  const [isNext, setIsNext] = useState(false)
+  const { toggleModal, weapon } = props;
+  const initialValues = !weapon.peritaje
+    ? {
+        ...weapon,
+        peritaje_nombre: "",
+        peritaje_cedula: "",
+        fecha_informe: "",
+        estudio: "",
+        description_emp_ef: "",
+        observation: "",
+        weapon_anima_type: "",
+        weapon_rotation: "",
+        weapon_functioning: "",
+        weapon_fabrication: "",
+        weapon_finish: "",
+        weapon_finish_other: "",
+        weapon_cachas: "",
+        weapon_cachas_other: "",
+        weapon_empunadura: "",
+        weapon_empunadura_other: "",
+        weapon_guardamano: "",
+        weapon_guardamano_other: "",
+        projectile_shape: "",
+        projectile_shape_other: "",
+        peritaje_projectile_observation: "",
+      }
+    : { ...weapon };
+  const avalible = weapon.peritaje;
+  const { formState, onInputChange } = useForm(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [pag, setPag] = useState(0);
+  const [isNext, setIsNext] = useState(false);
 
   const registerSubmit = (e) => {
-    e.preventDefault()
-    setFormErrors(validate(formState))
-    setIsSubmit(true)
-    formState.peritaje = true
+    e.preventDefault();
+    setFormErrors(validate(formState));
+    setIsSubmit(true);
+    formState.peritaje = true;
     const index = weapons.findIndex(
       (obj) => obj.consecutivo === formState.consecutivo
-    )
-    weapons.splice(index, 1)
-    weapons.push(formState)
-  }
+    );
+    weapons.splice(index, 1);
+    weapons.push(formState);
+  };
 
   const validate = (values) => {
-    const errors = {}
+    const errors = {};
     switch (pag) {
       case 0:
-        if (!values.peritaje_nombre) errors.peritaje_nombre = error.campo
-        if (!values.peritaje_cedula) errors.peritaje_cedula = error.campo
-        break
+        if (!values.peritaje_nombre) errors.peritaje_nombre = error.campo;
+        if (!values.peritaje_cedula) errors.peritaje_cedula = error.campo;
+        break;
       case 1:
-        break
+        break;
       case 2:
-        break
+        break;
       case 3:
-        break
+        break;
       default:
-        break
+        break;
     }
-    return errors
-  }
+    return errors;
+  };
   const addPag = () => {
-    setFormErrors(validate(formState))
-    setIsNext(true)
-  }
+    setFormErrors(validate(formState));
+    setIsNext(true);
+  };
   const subPag = () => {
-    setPag(pag - 1)
-  }
+    setPag(pag - 1);
+  };
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       if (isNext) {
-        setPag(pag + 1)
-        setIsNext(false)
+        setPag(pag + 1);
+        setIsNext(false);
       }
       if (isSubmit) {
-        toggleModal()
+        toggleModal();
       }
     }
-  }, [formErrors, pag, isSubmit, toggleModal, isNext])
-
-  
+  }, [formErrors, pag, isSubmit, toggleModal, isNext]);
 
   return (
     <div className="modal">
@@ -129,6 +130,7 @@ export const BalisticForm = (props) => {
                       onChange={onInputChange}
                       value={formState.peritaje_nombre}
                       autoComplete="off"
+                      disabled={avalible}
                     />
                     <label htmlFor="peritaje_cedula">
                       C&eacute;dula del responsable peritaje
@@ -143,6 +145,7 @@ export const BalisticForm = (props) => {
                       onChange={onInputChange}
                       value={formState.peritaje_cedula}
                       autoComplete="off"
+                      disabled={avalible}
                     />
                     <label htmlFor="fecha_informe">Fecha del informe</label>
                     <input
@@ -153,6 +156,7 @@ export const BalisticForm = (props) => {
                       value={formState.fecha_informe}
                       min="1900-01-01"
                       max="2100-01-01"
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="estudio">Estudio solicitado</label>
@@ -163,6 +167,7 @@ export const BalisticForm = (props) => {
                       id="estudio"
                       value={formState.estudio}
                       onChange={onInputChange}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="description_emp_ef">
@@ -175,6 +180,7 @@ export const BalisticForm = (props) => {
                       id="description_emp_ef"
                       value={formState.description_emp_ef}
                       onChange={onInputChange}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <h3 htmlFor="registro">Registro del investigador</h3>
@@ -225,6 +231,7 @@ export const BalisticForm = (props) => {
                       placeholder="Observaciones..."
                       onChange={onInputChange}
                       value={formState.observation}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                   </>
@@ -304,6 +311,7 @@ export const BalisticForm = (props) => {
                       placeholder="..."
                       onChange={onInputChange}
                       value={formState.weapon_model}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="nunc">
@@ -316,6 +324,7 @@ export const BalisticForm = (props) => {
                       placeholder="..."
                       onChange={onInputChange}
                       value={formState.nunc}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="weapon_anima_type">Tipo</label>
@@ -324,6 +333,7 @@ export const BalisticForm = (props) => {
                       name="weapon_anima_type"
                       id="weapon_anima_type"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_anima_type}
                     >
                       <option> -- Tipo -- </option>
@@ -339,6 +349,7 @@ export const BalisticForm = (props) => {
                       placeholder="..."
                       onChange={onInputChange}
                       value={formState.weapon_quantity}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="weapon_rotation">
@@ -349,6 +360,7 @@ export const BalisticForm = (props) => {
                       name="weapon_rotation"
                       id="weapon_rotation"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_rotation}
                     >
                       <option> -- Sentido de rotacion -- </option>
@@ -362,6 +374,7 @@ export const BalisticForm = (props) => {
                       name="weapon_functioning"
                       id="weapon_functioning"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_functioning}
                     >
                       <option> -- Funcionamiento -- </option>
@@ -377,6 +390,7 @@ export const BalisticForm = (props) => {
                       placeholder="..."
                       onChange={onInputChange}
                       value={formState.weapon_maker}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="weapon_country">
@@ -389,6 +403,7 @@ export const BalisticForm = (props) => {
                       placeholder="..."
                       onChange={onInputChange}
                       value={formState.weapon_country}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="weapon_fabrication">
@@ -399,6 +414,7 @@ export const BalisticForm = (props) => {
                       name="weapon_fabrication"
                       id="weapon_fabrication"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_fabrication}
                     >
                       <option> -- Fabricacion -- </option>
@@ -412,6 +428,7 @@ export const BalisticForm = (props) => {
                       name="weapon_finish"
                       id="weapon_finish"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_finish}
                     >
                       <option> -- Acabado -- </option>
@@ -429,6 +446,7 @@ export const BalisticForm = (props) => {
                           id="weapon_finish_other"
                           onChange={onInputChange}
                           value={formState.weapon_finish_other}
+                          disabled={avalible}
                           autoComplete="off"
                         />
                       </>
@@ -439,6 +457,7 @@ export const BalisticForm = (props) => {
                       name="weapon_cachas"
                       id="weapon_cachas"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_cachas}
                     >
                       <option> -- Cachas -- </option>
@@ -456,6 +475,7 @@ export const BalisticForm = (props) => {
                           id="weapon_cachas_other"
                           onChange={onInputChange}
                           value={formState.weapon_cachas_other}
+                          disabled={avalible}
                           autoComplete="off"
                         />
                       </>
@@ -467,6 +487,7 @@ export const BalisticForm = (props) => {
                       id="weapon_empunadura"
                       onChange={onInputChange}
                       value={formState.weapon_empunadura}
+                      disabled={avalible}
                     >
                       <option> -- Empunadura -- </option>
                       {material_types.map((opt) => (
@@ -484,6 +505,7 @@ export const BalisticForm = (props) => {
                           onChange={onInputChange}
                           value={formState.weapon_empunadura_other}
                           autoComplete="off"
+                          disabled={avalible}
                         />
                       </>
                     )}
@@ -496,6 +518,7 @@ export const BalisticForm = (props) => {
                       placeholder="..."
                       onChange={onInputChange}
                       value={formState.weapon_culata}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                     <label htmlFor="weapon_guardamano">Guardamanos</label>
@@ -504,6 +527,7 @@ export const BalisticForm = (props) => {
                       name="weapon_guardamano"
                       id="weapon_guardamano"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_guardamano}
                     >
                       <option> -- Guardamanos -- </option>
@@ -521,6 +545,7 @@ export const BalisticForm = (props) => {
                           id="weapon_guardamano_other"
                           onChange={onInputChange}
                           value={formState.weapon_guardamano_other}
+                          disabled={avalible}
                           autoComplete="off"
                         />
                       </>
@@ -534,6 +559,7 @@ export const BalisticForm = (props) => {
                       id="weapon_adj_specials"
                       placeholder="..."
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.weapon_adj_specials}
                       autoComplete="off"
                     />
@@ -544,6 +570,7 @@ export const BalisticForm = (props) => {
                       placeholder="Observaciones..."
                       onChange={onInputChange}
                       value={formState.weapon_observation}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                   </>
@@ -595,6 +622,7 @@ export const BalisticForm = (props) => {
                       name="projectile_shape"
                       id="projectile_shape"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.projectile_shape}
                     >
                       <option> -- Forma -- </option>
@@ -612,19 +640,20 @@ export const BalisticForm = (props) => {
                           id="projectile_shape_other"
                           onChange={onInputChange}
                           value={formState.projectile_shape_other}
+                          disabled={avalible}
                           autoComplete="off"
                         />
                       </>
                     )}
-                    <label htmlFor="projectile_observation">
+                    <label htmlFor="peritaje_projectile_observation">
                       Observaciones
                     </label>
                     <textarea
-                      name="projectile_observation"
-                      id="projectile_observation"
+                      name="peritaje_projectile_observation"
+                      id="peritaje_projectile_observation"
                       placeholder="Observaciones..."
                       onChange={onInputChange}
-                      value={formState.projectile_observation}
+                      value={formState.peritaje_projectile_observation}
                       autoComplete="off"
                     />
                   </>
@@ -675,6 +704,7 @@ export const BalisticForm = (props) => {
                       name="vainilla_shape"
                       id="vainilla_shape"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.vainilla_shape}
                     >
                       <option> -- Forma -- </option>
@@ -692,6 +722,7 @@ export const BalisticForm = (props) => {
                           id="vainilla_shape_other"
                           onChange={onInputChange}
                           value={formState.vainilla_shape_other}
+                          disabled={avalible}
                           autoComplete="off"
                         />
                       </>
@@ -702,6 +733,7 @@ export const BalisticForm = (props) => {
                       name="vainilla_percution"
                       id="vainilla_percution"
                       onChange={onInputChange}
+                      disabled={avalible}
                       value={formState.vainilla_percution}
                     >
                       <option> -- Percusion -- </option>
@@ -716,6 +748,7 @@ export const BalisticForm = (props) => {
                       placeholder="Observaciones..."
                       onChange={onInputChange}
                       value={formState.vainilla_observation}
+                      disabled={avalible}
                       autoComplete="off"
                     />
                   </>
@@ -751,5 +784,5 @@ export const BalisticForm = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

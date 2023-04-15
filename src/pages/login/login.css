@@ -4,7 +4,7 @@
   gap: 15%;
 }
 
-.login__image {
+/* .login__image {
   width: 91%;
   aspect-ratio: 1/1;
   border-radius: 2rem;
@@ -22,10 +22,10 @@
   overflow: hidden;
   transform: rotate(10deg);
   transition: var(--transition);
-}
-.login__image-img:hover {
+} */
+/* .login__image-img:hover {
   transform: rotate(0);
-}
+} */
 .login__cover {
   background: var(--color-bg);
   width: 25rem;

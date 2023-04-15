@@ -1,56 +1,65 @@
-import React, { useEffect, useState } from "react"
-import { useForm } from "../../hook/useForm"
+import React, { useEffect, useState } from "react";
+import { useForm } from "../../hook/useForm";
 // import { error } from "../../utils/error"
 // import { validateForm } from "../../utils/forms"
+import { weapons } from "../../data/data";
 
-export const AlmacenistForm = (props) => {
-  const { toggleModal, weapon, ley } = props
-  const initialValues = {
-    ...weapon,
-  }
-  const { formState } = useForm(initialValues)
-  const [formErrors, setFormErrors] = useState({})
-  const [isSubmit, setIsSubmit] = useState(false)
-  const [pag, setPag] = useState(0)
-  const [isNext, setIsNext] = useState(false)
+export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
+  const initialValues = !weapon.almacenista
+    ? {
+        ...weapon,
+      }
+    : { ...weapon };
+  const avalible = weapon.almacenista;
+  const { formState, onInputChange } = useForm(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [pag, setPag] = useState(0);
+  const [isNext, setIsNext] = useState(false);
 
   const registerSubmit = (e) => {
-    e.preventDefault()
-    setFormErrors(validate(formState))
-    setIsSubmit(true)
-  }
+    e.preventDefault();
+    setFormErrors(validate(formState));
+    setIsSubmit(true);
+    formState.almacenista = true;
+    const index = weapons.findIndex(
+      (obj) => obj.consecutivo === formState.consecutivo
+    );
+    weapons.splice(index, 1);
+    weapons.push(formState);
+  };
   const validate = (values) => {
-    const errors = {}
+    const errors = {};
     switch (pag) {
       case 0:
-        break
+        break;
       case 1:
-        break
+        break;
       case 2:
-        break
+        break;
       default:
-        break
+        break;
     }
-    return errors
-  }
+    return errors;
+  };
   const addPag = () => {
-    setFormErrors(validate(formState))
-    setIsNext(true)
-  }
+    setFormErrors(validate(formState));
+    setIsNext(true);
+  };
   const subPag = () => {
-    setPag(pag - 1)
-  }
+    setPag(pag - 1);
+  };
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       if (isNext) {
-        setPag(pag + 1)
-        setIsNext(false)
+        setPag(pag + 1);
+        setIsNext(false);
       }
       if (isSubmit) {
-        toggleModal()
+        toggleModal();
       }
     }
-  }, [formErrors, pag, isSubmit, toggleModal, isNext])
+  }, [formErrors, pag, isSubmit, toggleModal, isNext]);
   return (
     <div className="modal">
       <div className="overlay">
@@ -64,13 +73,34 @@ export const AlmacenistForm = (props) => {
                     /* -------------------------------------------------------------------------- */
                     /*                                 FORM PAG 0                                 */
                     /* -------------------------------------------------------------------------- */
-                    pag === 0 && <></>
+                    pag === 0 && (
+                      <>
+                        <h3>Registro seg&uacute;n la Ley 906 de 2004</h3>
+                        <label htmlFor="Oficio">
+                          Nombre del responsable peritaje
+                          <span className="input__required">*</span>
+                        </label>
+                        {/* <p className="error-form">
+                          {formErrors.campo_importante}
+                        </p> */}
+                        <input
+                          type="text"
+                          name="oficio"
+                          id="oficio"
+                          placeholder="..."
+                          onChange={onInputChange}
+                          value={formState.oficio}
+                          disabled={avalible}
+                          autoComplete="off"
+                        />
+                      </>
+                    )
                   }
                   {
                     /* -------------------------------------------------------------------------- */
                     /*                                 FORM PAG 1                                 */
                     /* -------------------------------------------------------------------------- */
-                    pag === 1 && <></>
+                    pag === 1 && <>{}</>
                   }
                 </div>
                 <div className="buttons">
@@ -156,5 +186,5 @@ export const AlmacenistForm = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
