@@ -1,8 +1,8 @@
 import React from "react"
 import { useForm } from "../../hook/useForm"
 import "./login.css"
-import { useLocation, useNavigate } from "react-router-dom"
-import BANNER from "../../assets/banner.png"
+import { useLocation, useNavigate, Link } from "react-router-dom"
+import LOGO from "../../assets/logo_seize.png"
 
 const routes = {
   almacenista: "/almacenista",
@@ -48,15 +48,17 @@ export const Login = (props) => {
 
   return (
     <section className="login">
-      <div className="container login__container">
+      <div className="login__container">
         <div className="login__image">
-          <div className="login__image-img">
-            <img src={BANNER} alt="policia usando computadora" />
-          </div>
+          <div className="login__image-img"></div>
         </div>
         <div className="login__container-box">
           <div className="login__cover">
-            <h1>Login</h1>
+            <div className="login__title">
+              <img src={LOGO} alt="" />
+              <h1>Portal de incautaci&oacute;n de armas</h1>
+            </div>
+
             {state?.error && (
               <p className="error-form">
                 Error usuario o contrase&ntilde;a incorrectos
@@ -84,9 +86,22 @@ export const Login = (props) => {
                   value={pass}
                   autoComplete="off"
                 />
+                <div className="login__form-checkbox">
+                  <input type="checkbox" />
+                  <label>Recordar </label>
+                  <a href="/" className="forgot-password">
+                    {" "}
+                    Olvido su contrase&ntilde;a?
+                  </a>
+                </div>
                 <button type="submit" className="btn btn-primary">
                   Ingresar
                 </button>
+                <div className="login-register">
+                  <p>
+                    No tiene cuenta?<Link to="/register"> Registrese</Link>
+                  </p>
+                </div>
               </form>
             </div>
           </div>

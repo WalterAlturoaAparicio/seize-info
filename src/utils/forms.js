@@ -33,7 +33,16 @@ export const fabrication = ["original de industria", "legalmente patentada"]
 export const finish = ["Pavonado", "Cromado", "Otro"]
 export const material_types = ["Metalica", "Madera", "Pasta", "Otro"]
 export const percution = ["central", "angular"]
-
+export const almacenist_procedure = [
+  "custodia",
+  "aplicacion de pruebas",
+  "comiso o destruccion",
+]
+export const almacenist_procedure_decreto = [
+  "custodia",
+  "comiso o destruccion",
+  "devolucion",
+]
 
 export function zeroFill(number, width) {
   width -= number.toString().length

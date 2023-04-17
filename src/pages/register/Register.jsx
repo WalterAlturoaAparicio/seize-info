@@ -2,19 +2,7 @@ import React from "react"
 import { useForm } from "../../hook/useForm"
 import "./register.css"
 import { useLocation, useNavigate } from "react-router-dom"
-import BANNER from "../../assets/banner1.png"
-
-// const routes = {
-//   almacenista: "/almacenista",
-//   balistico: "/balistico",
-//   investigador: "/investigador",
-// }
-
-// const users = {
-//   almacenista: "almacenista",
-//   balistico: "balistico",
-//   investigador: "investigador",
-// }
+import LOGO from "../../assets/logo_seize.png"
 
 export const Register = (props) => {
   const navigate = useNavigate()
@@ -40,15 +28,18 @@ export const Register = (props) => {
 
   return (
     <section className="register">
-      <div className="container register__container">
+      <div className="register__container">
         <div className="register__image">
           <div className="register__image-img">
-            <img src={BANNER} alt="policia usando computadora" />
+            {/* <img src={BANNER} alt="policia usando computadora" /> */}
           </div>
         </div>
         <div className="register__container-box">
           <div className="register__cover">
-            <h1>Sign up</h1>
+          <div className="register__title">
+              <img src={LOGO} alt="" />
+              <h1>Portal de incautaci&oacute;n de armas</h1>
+            </div>
             {state?.error && (
               <div className="error-form">
                 No se ha podido registrar el usuario

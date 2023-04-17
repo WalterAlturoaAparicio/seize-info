@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "../../hook/useForm";
-import "./form.css";
-import { weapons } from "../../data/data";
+import React, { useEffect, useState } from "react"
+import { useForm } from "../../hook/useForm"
+import "./form.css"
+import { weapons } from "../../data/data"
 import {
   anima_types,
   sense_rotation,
@@ -12,11 +12,11 @@ import {
   shape,
   percution,
   validateForm,
-} from "../../utils/forms";
-import { error } from "../../utils/error";
+} from "../../utils/forms"
+import { error } from "../../utils/error"
 
 export const BalisticForm = (props) => {
-  const { toggleModal, weapon } = props;
+  const { toggleModal, weapon } = props
   const initialValues = !weapon.peritaje
     ? {
         ...weapon,
@@ -26,79 +26,85 @@ export const BalisticForm = (props) => {
         estudio: "",
         description_emp_ef: "",
         observation: "",
+        weapon_model: "",
+        weapon_width_canon: "",
         weapon_anima_type: "",
         weapon_rotation: "",
         weapon_functioning: "",
+        weapon_maker: "",
+        weapon_country: "",
         weapon_fabrication: "",
         weapon_finish: "",
         weapon_finish_other: "",
         weapon_cachas: "",
         weapon_cachas_other: "",
+        weapon_culata: "",
         weapon_empunadura: "",
         weapon_empunadura_other: "",
         weapon_guardamano: "",
         weapon_guardamano_other: "",
+        weapon_adj_specials: "",
         projectile_shape: "",
         projectile_shape_other: "",
         peritaje_projectile_observation: "",
       }
-    : { ...weapon };
-  const avalible = weapon.peritaje;
-  const { formState, onInputChange } = useForm(initialValues);
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [pag, setPag] = useState(0);
-  const [isNext, setIsNext] = useState(false);
+    : { ...weapon }
+  const avalible = weapon.peritaje
+  const { formState, onInputChange } = useForm(initialValues)
+  const [formErrors, setFormErrors] = useState({})
+  const [isSubmit, setIsSubmit] = useState(false)
+  const [pag, setPag] = useState(0)
+  const [isNext, setIsNext] = useState(false)
 
   const registerSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(formState));
-    setIsSubmit(true);
-    formState.peritaje = true;
+    e.preventDefault()
+    setFormErrors(validate(formState))
+    setIsSubmit(true)
+    formState.peritaje = true
     const index = weapons.findIndex(
       (obj) => obj.consecutivo === formState.consecutivo
-    );
-    weapons.splice(index, 1);
-    weapons.push(formState);
-  };
+    )
+    weapons.splice(index, 1)
+    weapons.push(formState)
+  }
 
   const validate = (values) => {
-    const errors = {};
+    const errors = {}
     switch (pag) {
       case 0:
-        if (!values.peritaje_nombre) errors.peritaje_nombre = error.campo;
-        if (!values.peritaje_cedula) errors.peritaje_cedula = error.campo;
-        break;
+        if (!values.peritaje_nombre) errors.peritaje_nombre = error.campo
+        if (!values.peritaje_cedula) errors.peritaje_cedula = error.campo
+        break
       case 1:
-        break;
+        break
       case 2:
-        break;
+        break
       case 3:
-        break;
+        break
       default:
-        break;
+        break
     }
-    return errors;
-  };
+    return errors
+  }
   const addPag = () => {
-    setFormErrors(validate(formState));
-    setIsNext(true);
-  };
+    setFormErrors(validate(formState))
+    setIsNext(true)
+  }
   const subPag = () => {
-    setPag(pag - 1);
-  };
+    setPag(pag - 1)
+  }
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0) {
       if (isNext) {
-        setPag(pag + 1);
-        setIsNext(false);
+        setPag(pag + 1)
+        setIsNext(false)
       }
       if (isSubmit) {
-        toggleModal();
+        toggleModal()
       }
     }
-  }, [formErrors, pag, isSubmit, toggleModal, isNext]);
+  }, [formErrors, pag, isSubmit, toggleModal, isNext])
 
   return (
     <div className="modal">
@@ -245,62 +251,62 @@ export const BalisticForm = (props) => {
                   <>
                     <h3 htmlFor="weapon_type">Informaci&oacute;n del arma</h3>
                     <h3 htmlFor="registro">Registro del investigador</h3>
-                    <div className="form__container">
-                      <div className="form__container-no-modify">
-                        <ul>
-                          <div>
-                            <li className="white">Tipo</li>
-                            <li>
-                              {validateForm(
-                                weapon.weapon_type,
-                                weapon.weapon_type_other
-                              )}
-                            </li>
-                          </div>
-                        </ul>
-                      </div>
-                      <div className="form__container-no-modify">
-                        <ul>
-                          <div>
-                            <li className="white">Calibre</li>
-                            <li>
-                              {validateForm(
-                                weapon.weapon_caliber,
-                                weapon.weapon_caliber_other
-                              )}
-                            </li>
-                          </div>
-                        </ul>
-                      </div>
-                      <div className="form__container-no-modify">
-                        <ul>
-                          <div>
-                            <li className="white">Marca</li>
-                            <li>{validateForm(weapon.weapon_brand, false)}</li>
-                          </div>
-                        </ul>
-                      </div>
-                      <div className="form__container-no-modify">
-                        <ul>
-                          <div>
-                            <li className="white">N° Serie</li>
-                            <li>{validateForm(weapon.weapon_serie, false)}</li>
-                          </div>
-                        </ul>
-                      </div>
-                      <div className="form__container-no-modify">
-                        <ul>
-                          <div>
-                            <li className="white">Accesorios</li>
-                            <li>
-                              {validateForm(
-                                weapon.accesories_description,
-                                false
-                              )}
-                            </li>
-                          </div>
-                        </ul>
-                      </div>
+                      <div className="form__container">
+                        <div className="form__container-no-modify">
+                          <ul>
+                            <div>
+                              <li className="white">Tipo</li>
+                              <li>
+                                {validateForm(
+                                  weapon.weapon_type,
+                                  weapon.weapon_type_other
+                                )}
+                              </li>
+                            </div>
+                          </ul>
+                        </div>
+                        <div className="form__container-no-modify">
+                          <ul>
+                            <div>
+                              <li className="white">Calibre</li>
+                              <li>
+                                {validateForm(
+                                  weapon.weapon_caliber,
+                                  weapon.weapon_caliber_other
+                                )}
+                              </li>
+                            </div>
+                          </ul>
+                        </div>
+                        <div className="form__container-no-modify">
+                          <ul>
+                            <div>
+                              <li className="white">Marca</li>
+                              <li>{validateForm(weapon.weapon_brand, false)}</li>
+                            </div>
+                          </ul>
+                        </div>
+                        <div className="form__container-no-modify">
+                          <ul>
+                            <div>
+                              <li className="white">N° Serie</li>
+                              <li>{validateForm(weapon.weapon_serie, false)}</li>
+                            </div>
+                          </ul>
+                        </div>
+                        <div className="form__container-no-modify">
+                          <ul>
+                            <div>
+                              <li className="white">Accesorios</li>
+                              <li>
+                                {validateForm(
+                                  weapon.accesories_description,
+                                  false
+                                )}
+                              </li>
+                            </div>
+                          </ul>
+                        </div>
                     </div>
                     <br />
                     <label htmlFor="weapon_model">Modelo</label>
@@ -314,16 +320,16 @@ export const BalisticForm = (props) => {
                       disabled={avalible}
                       autoComplete="off"
                     />
-                    <label htmlFor="nunc">
+                    <label htmlFor="weapon_width_canon">
                       Longitud del ca&ntilde;&oacute;n
                     </label>
                     <input
                       type="text"
-                      name="nunc"
-                      id="nunc"
+                      name="weapon_width_canon"
+                      id="weapon_width_canon"
                       placeholder="..."
                       onChange={onInputChange}
-                      value={formState.nunc}
+                      value={formState.weapon_width_canon}
                       disabled={avalible}
                       autoComplete="off"
                     />
@@ -784,5 +790,5 @@ export const BalisticForm = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

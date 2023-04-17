@@ -1,38 +1,32 @@
 .register__container {
-  display: grid;
-  grid-template-columns: 50% 35%;
-  gap: 15%;
+  display: flex;
+  background-image: url("../../assets/banner.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: var(--container-width-lg);
 }
-
+.register {
+  margin-top: 0;
+}
 .register__image {
-  width: 91%;
-  aspect-ratio: 1/1;
-  border-radius: 2rem;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    var(--color-primary),
-    transparent
-  );
-  display: grid;
-  place-items: center;
+  flex-shrink: 0;
 }
 .register__image-img {
-  border-radius: 2rem;
-  overflow: hidden;
-  transform: rotate(10deg);
-  transition: var(--transition);
+  width: 100%;
+  height: 100vh;
 }
-.register__image-img:hover {
-  transform: rotate(0);
+.register__container-box {
+  right: 0;
+  position: absolute;
+  margin: 0 auto;
+  overflow: auto !important;
 }
 .register__cover {
   background: var(--color-bg);
   width: 25rem;
-  height: 40rem;
+  height: 90vh;
   position: relative;
-  border-radius: 1rem;
-  box-shadow: 0 0.188rem 1.55rem var(--color-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,8 +54,14 @@ input {
   margin-bottom: 2rem;
   font-family: "Poppins", sans-serif;
 }
-
-
+.register__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.register__cover div img {
+  filter: invert(1);
+}
 /* -------------------------------------------------------------------------- */
 /*                       MEDIA QUERIES (MEDIUM DEVICES)                       */
 /* -------------------------------------------------------------------------- */
