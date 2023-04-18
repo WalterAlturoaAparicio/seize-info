@@ -86,6 +86,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
       }
     }
   }, [formErrors, pag, isSubmit, toggleModal, isNext])
+
   return (
     <div className="modal">
       <div className="overlay">

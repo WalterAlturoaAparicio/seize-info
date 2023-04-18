@@ -17,6 +17,7 @@ import { error } from "../../utils/error"
 
 export const BalisticForm = (props) => {
   const { toggleModal, weapon } = props
+
   const initialValues = !weapon.peritaje
     ? {
         ...weapon,
@@ -105,7 +106,6 @@ export const BalisticForm = (props) => {
       }
     }
   }, [formErrors, pag, isSubmit, toggleModal, isNext])
-
   return (
     <div className="modal">
       <div className="overlay">
@@ -251,62 +251,62 @@ export const BalisticForm = (props) => {
                   <>
                     <h3 htmlFor="weapon_type">Informaci&oacute;n del arma</h3>
                     <h3 htmlFor="registro">Registro del investigador</h3>
-                      <div className="form__container">
-                        <div className="form__container-no-modify">
-                          <ul>
-                            <div>
-                              <li className="white">Tipo</li>
-                              <li>
-                                {validateForm(
-                                  weapon.weapon_type,
-                                  weapon.weapon_type_other
-                                )}
-                              </li>
-                            </div>
-                          </ul>
-                        </div>
-                        <div className="form__container-no-modify">
-                          <ul>
-                            <div>
-                              <li className="white">Calibre</li>
-                              <li>
-                                {validateForm(
-                                  weapon.weapon_caliber,
-                                  weapon.weapon_caliber_other
-                                )}
-                              </li>
-                            </div>
-                          </ul>
-                        </div>
-                        <div className="form__container-no-modify">
-                          <ul>
-                            <div>
-                              <li className="white">Marca</li>
-                              <li>{validateForm(weapon.weapon_brand, false)}</li>
-                            </div>
-                          </ul>
-                        </div>
-                        <div className="form__container-no-modify">
-                          <ul>
-                            <div>
-                              <li className="white">N° Serie</li>
-                              <li>{validateForm(weapon.weapon_serie, false)}</li>
-                            </div>
-                          </ul>
-                        </div>
-                        <div className="form__container-no-modify">
-                          <ul>
-                            <div>
-                              <li className="white">Accesorios</li>
-                              <li>
-                                {validateForm(
-                                  weapon.accesories_description,
-                                  false
-                                )}
-                              </li>
-                            </div>
-                          </ul>
-                        </div>
+                    <div className="form__container">
+                      <div className="form__container-no-modify">
+                        <ul>
+                          <div>
+                            <li className="white">Tipo</li>
+                            <li>
+                              {validateForm(
+                                weapon.weapon_type,
+                                weapon.weapon_type_other
+                              )}
+                            </li>
+                          </div>
+                        </ul>
+                      </div>
+                      <div className="form__container-no-modify">
+                        <ul>
+                          <div>
+                            <li className="white">Calibre</li>
+                            <li>
+                              {validateForm(
+                                weapon.weapon_caliber,
+                                weapon.weapon_caliber_other
+                              )}
+                            </li>
+                          </div>
+                        </ul>
+                      </div>
+                      <div className="form__container-no-modify">
+                        <ul>
+                          <div>
+                            <li className="white">Marca</li>
+                            <li>{validateForm(weapon.weapon_brand, false)}</li>
+                          </div>
+                        </ul>
+                      </div>
+                      <div className="form__container-no-modify">
+                        <ul>
+                          <div>
+                            <li className="white">N° Serie</li>
+                            <li>{validateForm(weapon.weapon_serie, false)}</li>
+                          </div>
+                        </ul>
+                      </div>
+                      <div className="form__container-no-modify">
+                        <ul>
+                          <div>
+                            <li className="white">Accesorios</li>
+                            <li>
+                              {validateForm(
+                                weapon.accesories_description,
+                                false
+                              )}
+                            </li>
+                          </div>
+                        </ul>
+                      </div>
                     </div>
                     <br />
                     <label htmlFor="weapon_model">Modelo</label>

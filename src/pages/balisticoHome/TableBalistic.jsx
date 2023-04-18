@@ -43,7 +43,7 @@ export const TableBalistic = ({ data, toggleModal, modal }) => {
           )}
         </tbody>
       </table>
-      {modal && <BalisticForm toggleModal={toggleModal} weapon={weapon} />}
+      {modal && !weapon.peritaje && <BalisticForm toggleModal={toggleModal} weapon={weapon} />}
     </>
   );
 };

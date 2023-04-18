@@ -1,5 +1,6 @@
 {
   "name": "seize-info",
+  "homepage": "https://seize-info.nadirsas.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

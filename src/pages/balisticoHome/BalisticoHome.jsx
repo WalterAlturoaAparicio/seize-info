@@ -1,35 +1,37 @@
-import React, { useState } from "react";
-import "./balisticHome.css";
-import { weapons } from "../../data/data";
-import { TableBalistic } from "./TableBalistic";
-import { searchField } from "../../utils/forms";
-import { BalisticForm } from "../../components/form/BalisticForm";
+import React, { useState } from "react"
+import "./balisticHome.css"
+import { weapons } from "../../data/data"
+import { TableBalistic } from "./TableBalistic"
+import { searchField } from "../../utils/forms"
+import { BalisticForm } from "../../components/form/BalisticForm"
 
 export const BalisticoHome = () => {
-  const [busqueda, setBusqueda] = useState("");
-  const [error, setError] = useState();
-  const [modal, setModal] = useState(false);
-  const [weapon, setWeapon] = useState({});
+  const [busqueda, setBusqueda] = useState("")
+  const [error, setError] = useState()
+  const [modal, setModal] = useState(false)
+  const [weapon, setWeapon] = useState({})
+  const [isSubmit, setIsSubmit] = useState(false)
 
-  const weapons_peritaje = weapons.filter((weapon) => !weapon.peritaje);
+  const weapons_peritaje = weapons.filter((weapon) => !weapon.peritaje)
 
   const toggleModal = () => {
-    setModal(!modal);
-  };
+    setModal(!modal)
+  }
 
   const handleSearch = (e) => {
-    e.preventDefault();
-    const res = searchField(busqueda, weapons, "nunc");
-    if (res.error) setError(res.error);
+    e.preventDefault()
+    const res = searchField(busqueda, weapons, "nunc")
+    if (res.error) setError(res.error)
     else {
-      setError();
-      setWeapon(res);
-      setModal(true);
+      setError()
+      setIsSubmit(true)
+      setWeapon(res)
+      setModal(true)
     }
-  };
+  }
   const handleChangeSearch = ({ target: { value } }) => {
-    setBusqueda(value);
-  };
+    setBusqueda(value)
+  }
   return (
     <section className="invest">
       <div className="container invest__container">
@@ -57,7 +59,9 @@ export const BalisticoHome = () => {
           modal={modal}
         />
       </div>
-      {modal && <BalisticForm toggleModal={toggleModal} weapon={weapon} />}
+      {modal && isSubmit && (
+        <BalisticForm toggleModal={toggleModal} weapon={weapon} />
+      )}
     </section>
-  );
-};
+  )
+}
