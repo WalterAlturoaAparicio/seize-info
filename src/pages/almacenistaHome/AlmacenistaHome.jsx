@@ -25,7 +25,7 @@ export const AlmacenistaHome = () => {
         <form onSubmit={handleSearch}>
           <p className="error-form">{error}</p>
           <div className="table__title">
-            <h3 className="title">Registros</h3>
+            <h1 className="title">Registros</h1>
             <input
               type="text"
               name="buscar"

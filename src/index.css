@@ -36,10 +36,10 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-  background: var(--color-bg);
   color: var(--color-white);
   line-height: 1.7;
-  background-image: url(../src/assets/bg-texture.png);
+  background: linear-gradient(to bottom right, rgba(0, 89, 55, 0.452), rgba(0, 37, 89, 0.452)),
+    url(../src/assets/background1.png);
 }
 
 .btn {

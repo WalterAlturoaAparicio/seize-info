@@ -16,7 +16,7 @@ export const TableAlmacenist = ({ data }) => {
           <tr>
             <th className="left">Consecutivo</th>
             <th className="left">Nunc</th>
-            <th className="right">Acciones</th>
+            <th className="center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@ export const TableAlmacenist = ({ data }) => {
                 <tr key={w.consecutivo}>
                   <td className="left">{w.consecutivo}</td>
                   <td className="left">{w.nunc}</td>
-                  <td className="right">
+                  <td className="center">
                     <button
                       className="btn btn-primary"
                       onClick={() => {

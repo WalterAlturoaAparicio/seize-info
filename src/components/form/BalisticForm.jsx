@@ -77,10 +77,32 @@ export const BalisticForm = (props) => {
         if (!values.peritaje_cedula) errors.peritaje_cedula = error.campo
         break
       case 1:
+        if (values.weapon_anima_type === " -- Tipo -- ")
+          formState.weapon_anima_type = ""
+        if (values.weapon_rotation === " -- Sentido de rotacion -- ")
+          formState.weapon_rotation = ""
+        if (values.weapon_functioning === " -- Funcionamiento -- ")
+          formState.weapon_functioning = ""
+        if (values.weapon_fabrication === " -- Fabricacion -- ")
+          formState.weapon_fabrication = ""
+        if (values.weapon_finish === " -- Acabado -- ")
+          formState.weapon_finish = ""
+        if (values.weapon_cachas === " -- Cachas -- ")
+          formState.weapon_cachas = ""
+        if (values.weapon_empunadura === " -- Empunadura -- ")
+          formState.weapon_empunadura = ""
+        if (values.weapon_guardamano === " -- Guardamanos -- ")
+          formState.weapon_guardamano = ""
         break
       case 2:
+        if (values.projectile_shape === " -- Forma -- ")
+          formState.projectile_shape = ""
         break
       case 3:
+        if (values.vainilla_shape === " -- Forma -- ")
+          formState.vainilla_shape = ""
+        if (values.vainilla_percution === " -- Percusion -- ")
+          formState.vainilla_percution = ""
         break
       default:
         break
@@ -249,7 +271,8 @@ export const BalisticForm = (props) => {
                 /* -------------------------------------------------------------------------- */
                 pag === 1 && (
                   <>
-                    <h3 htmlFor="weapon_type">Informaci&oacute;n del arma</h3>
+                    <h2 htmlFor="weapon_type">Informaci&oacute;n del arma</h2>
+                    <br />
                     <h3 htmlFor="registro">Registro del investigador</h3>
                     <div className="form__container">
                       <div className="form__container-no-modify">
@@ -333,7 +356,7 @@ export const BalisticForm = (props) => {
                       disabled={avalible}
                       autoComplete="off"
                     />
-                    <label htmlFor="weapon_anima_type">Tipo</label>
+                    <label htmlFor="weapon_anima_type">Tipo de anima</label>
                     <select
                       type="text"
                       name="weapon_anima_type"

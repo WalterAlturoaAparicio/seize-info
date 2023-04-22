@@ -56,7 +56,11 @@ export const Login = (props) => {
           <div className="login__cover">
             <div className="login__title">
               <img src={LOGO} alt="" />
-              <h1>Portal de incautaci&oacute;n de armas</h1>
+              <h1>SIGAI</h1>
+              <h4>
+                Sistema de Información para la Gesti&oacute;n de Armas de Fuego
+                Incautadas
+              </h4>
             </div>
 
             {state?.error && (

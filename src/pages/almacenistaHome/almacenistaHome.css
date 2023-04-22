@@ -20,15 +20,26 @@ table {
 }
 
 thead th {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding: 0.75rem;
 }
+
 .left {
   text-align: left;
 }
 .right {
   text-align: right;
 }
+.center {
+  text-align: center;  
+}
+.center .btn {
+  margin: 0.5rem;
+}
 tbody td {
   padding: 0.5rem;
+}
+table,
+th,
+td {
+  border: 1px solid white;
 }

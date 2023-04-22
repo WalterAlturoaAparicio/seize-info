@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useForm } from "../../hook/useForm"
-// import { error } from "../../utils/error"
-// import { validateForm } from "../../utils/forms"
 import { weapons } from "../../data/data"
 import {
   almacenist_procedure,
   almacenist_procedure_decreto,
   validateForm,
 } from "../../utils/forms"
+import { error } from "../../utils/error"
 
 export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
   const initialValues = !weapon.almacenista
@@ -17,9 +16,9 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
         procedure: "custodia",
         custodia_fecha_fiscalia: "",
         custodia_observaciones_estudio: "",
-        custodia_spoa: "",
+        custodia_spoa: null,
         custodia_fecha_ingreso: "",
-        custodia_foto: "",
+        custodia_foto: null,
         custodia_observaciones_contenedor: "",
         pruebas_entidad_solicitante: "",
         pruebas_fecha_fiscalia: "",
@@ -27,13 +26,28 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
         pruebas_fecha_retiro: "",
         pruebas_oficio_fisacalia: "",
         pruebas_nombre_retira: "",
-        pruebas_foto_cedula: "",
+        pruebas_foto_cedula: null,
+        pruebas_foto_tarjeta: null,
         pruebas_observaciones_estudio: "",
         comiso_entidad_solicitante: "",
         comiso_observaciones: "",
         comiso_fecha_solicitante: "",
         comiso_DCCA: "",
+        decreto_custodia_acta_incautacion: null,
+        decreto_fecha_informe_incau: "",
+        decreto_fotocopia_informe_incau: null,
+        decreto_nombre_incautado: "",
+        decreto_cedula_incautado: "",
+        decreto_fotocopia_cedula: null,
+        decreto_custodia_registro_foto: null,
         decreto_comiso_entidad_solicitante: "",
+        decreto_comiso_observaciones: "",
+        devolucion_oficio_cita: null,
+        devolucion_res_original: null,
+        devolucion_asuntos_juridicos: null,
+        devolucion_pago: null,
+        devolucion_foto_cedula: null,
+        devolucion_salvo_conducto: null,
       }
     : { ...weapon }
   const avalible = weapon.almacenista
@@ -42,6 +56,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [pag, setPag] = useState(0)
   const [isNext, setIsNext] = useState(false)
+  const [isBack, setIsBack] = useState(false)
 
   const registerSubmit = (e) => {
     e.preventDefault()
@@ -58,10 +73,60 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
     const errors = {}
     switch (pag) {
       case 0:
+        if (!values.gepol) errors.gepol = error.campo
         break
       case 1:
-        break
-      case 2:
+        if (ley) {
+          if (formState.procedure === "custodia") {
+            if (!values.custodia_fecha_fiscalia)
+              errors.custodia_fecha_fiscalia = error.campo
+            if (!values.custodia_spoa) errors.custodia_spoa = error.campo
+          }
+          if (formState.procedure === "aplicacion de pruebas") {
+            if (!values.pruebas_fecha_fiscalia)
+              errors.pruebas_fecha_fiscalia = error.campo
+            if (!values.pruebas_nombre_retira)
+              errors.pruebas_nombre_retira = error.campo
+            if (!values.pruebas_foto_cedula)
+              errors.pruebas_foto_cedula = error.campo
+            if (!values.pruebas_foto_cedula)
+              errors.pruebas_foto_cedula = error.campo
+          }
+          if (formState.procedure === "comiso o destruccion") {
+            if (!values.comiso_entidad_solicitante)
+              errors.comiso_entidad_solicitante = error.campo
+          }
+        } else {
+          if (formState.procedure === "custodia") {
+            if (!values.decreto_custodia_acta_incautacion)
+              errors.decreto_custodia_acta_incautacion = error.campo
+            if (!values.decreto_fecha_informe_incau)
+              errors.decreto_fecha_informe_incau = error.campo
+            if (!values.decreto_fotocopia_informe_incau)
+              errors.decreto_fotocopia_informe_incau = error.campo
+            if (!values.decreto_fotocopia_cedula)
+              errors.decreto_fotocopia_cedula = error.campo
+            if (!values.decreto_custodia_registro_foto)
+              errors.decreto_custodia_registro_foto = error.campo
+          }
+          if (formState.procedure === "comiso o destruccion") {
+            if (!values.decreto_comiso_entidad_solicitante)
+              errors.decreto_comiso_entidad_solicitante = error.campo
+          }
+          if (formState.procedure === "devolucion") {
+            if (!values.devolucion_oficio_cita)
+              errors.devolucion_oficio_cita = error.campo
+            if (!values.devolucion_res_original)
+              errors.devolucion_res_original = error.campo
+            if (!values.devolucion_asuntos_juridicos)
+              errors.devolucion_asuntos_juridicos = error.campo
+            if (!values.devolucion_pago) errors.devolucion_pago = error.campo
+            if (!values.devolucion_foto_cedula)
+              errors.devolucion_foto_cedula = error.campo
+            if (!values.devolucion_salvo_conducto)
+              errors.devolucion_salvo_conducto = error.campo
+          }
+        }
         break
       default:
         break
@@ -73,9 +138,13 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
     setIsNext(true)
   }
   const subPag = () => {
+    setFormErrors({})
     setPag(pag - 1)
+    setIsBack(true)
+    if (isSubmit) setIsSubmit(false)
   }
   useEffect(() => {
+    console.log(formState)
     if (Object.keys(formErrors).length === 0) {
       if (isNext) {
         setPag(pag + 1)
@@ -84,8 +153,11 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
       if (isSubmit) {
         toggleModal()
       }
+      if (isBack) {
+        setIsBack(false)
+      }
     }
-  }, [formErrors, pag, isSubmit, toggleModal, isNext])
+  }, [formErrors, pag, isSubmit, toggleModal, isNext, isBack, formState])
 
   return (
     <div className="modal">
@@ -173,6 +245,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="custodia_spoa"
                               name="custodia_spoa"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="custodia_foto">
                               Fotograf&iacute;a
@@ -182,6 +255,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="custodia_foto"
                               name="custodia_foto"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="custodia_fecha_ingreso">
                               Fecha de ingreso del elemento
@@ -591,6 +665,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="pruebas_foto_cedula"
                               name="pruebas_foto_cedula"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="pruebas_foto_tarjeta">
                               Fotocopia de la tarjeta profesional (defensor
@@ -605,6 +680,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="pruebas_foto_tarjeta"
                               name="pruebas_foto_tarjeta"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="pruebas_observaciones_estudio">
                               Se abre el contenedor observaciones /
@@ -630,6 +706,9 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               Entidad solicitante
                               <span className="input__required">*</span>
                             </label>
+                            <p className="error-form">
+                              {formErrors.comiso_entidad_solicitante}
+                            </p>
                             <input
                               type="text"
                               name="comiso_entidad_solicitante"
@@ -776,6 +855,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="decreto_custodia_acta_incautacion"
                               name="decreto_custodia_acta_incautacion"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="decreto_fecha_informe_incau">
                               Fecha del informe de incautaci&oacute;n
@@ -807,6 +887,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="decreto_fotocopia_informe_incau"
                               name="decreto_fotocopia_informe_incau"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="decreto_nombre_incautado">
                               Nombre completo de la persona a la que se
@@ -855,9 +936,10 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="decreto_fotocopia_cedula"
                               name="decreto_fotocopia_cedula"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="decreto_custodia_registro_foto">
-                              Acta registro fotogr&aacute;fico
+                              Registro fotogr&aacute;fico
                               <span className="input__required">*</span>
                             </label>
                             <p className="error-form">
@@ -868,6 +950,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="decreto_custodia_registro_foto"
                               name="decreto_custodia_registro_foto"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <h3 htmlFor="registro">
                               Caracter&iacute;sticas del arma
@@ -1128,6 +1211,9 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               Entidad solicitante
                               <span className="input__required">*</span>
                             </label>
+                            <p className="error-form">
+                              {formErrors.decreto_comiso_entidad_solicitante}
+                            </p>
                             <input
                               type="text"
                               name="decreto_comiso_entidad_solicitante"
@@ -1154,15 +1240,15 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               disabled={avalible}
                               autoComplete="off"
                             />
-                            <label htmlFor="comiso_observaciones">
+                            <label htmlFor="decreto_comiso_observaciones">
                               Osbervaciones
                             </label>
                             <textarea
-                              name="comiso_observaciones"
-                              id="comiso_observaciones"
+                              name="decreto_comiso_observaciones"
+                              id="decreto_comiso_observaciones"
                               placeholder="Observaciones..."
                               onChange={onInputChange}
-                              value={formState.comiso_observaciones}
+                              value={formState.decreto_comiso_observaciones}
                               disabled={avalible}
                               autoComplete="off"
                             />
@@ -1183,6 +1269,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="devolucion_oficio_cita"
                               name="devolucion_oficio_cita"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="devolucion_res_original">
                               Acta resoluci&oacute;n original
@@ -1196,6 +1283,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="devolucion_res_original"
                               name="devolucion_res_original"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="devolucion_asuntos_juridicos">
                               Autorizaci&oacute;n oficina asuntos
@@ -1210,6 +1298,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="devolucion_asuntos_juridicos"
                               name="devolucion_asuntos_juridicos"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="devolucion_pago">
                               Fotocopia recibo de pago
@@ -1223,6 +1312,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="devolucion_pago"
                               name="devolucion_pago"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="devolucion_foto_cedula">
                               Fotocopia c&eacute;dula (quien recibe el arma)
@@ -1236,6 +1326,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="devolucion_foto_cedula"
                               name="devolucion_foto_cedula"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                             <label htmlFor="devolucion_salvo_conducto">
                               Fotocopia salvo conducto (quien recibe el arma)
@@ -1249,6 +1340,7 @@ export const AlmacenistForm = ({ toggleModal, weapon, ley }) => {
                               id="devolucion_salvo_conducto"
                               name="devolucion_salvo_conducto"
                               accept="image/png, image/jpeg"
+                              onChange={onInputChange}
                             />
                           </>
                         )}

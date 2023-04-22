@@ -1,6 +1,6 @@
 .register__container {
   display: flex;
-  background-image: url("../../assets/banner.png");
+  /* background-image: url("../../assets/banner.png"); */
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -43,21 +43,11 @@
   margin-bottom: 2rem;
 }
 
-input {
-  width: 100%;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  background: transparent;
-  border: 2px solid var(--color-primary-variant);
-  resize: none;
-  color: var(--color-white);
-  margin-bottom: 2rem;
-  font-family: "Poppins", sans-serif;
-}
 .register__title {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 .register__cover div img {
   filter: invert(1);
