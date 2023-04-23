@@ -84,7 +84,7 @@ export const InvestForm = (props) => {
         break
       case 1:
         if (!values.nunc) errors.nunc = error.campo
-        else if (values.nunc.length !== 22) errors.nunc = error.nunc
+        else if (values.nunc.length !== 21) errors.nunc = error.nunc
         if (!values.delito) errors.delito = error.campo
         if (!values.fiscalia) errors.fiscalia = error.campo
         break
